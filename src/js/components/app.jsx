@@ -1,48 +1,51 @@
 import React, { Component } from 'react';
 import { RouteHandler } from 'react-router';
 
-import NoteItemList from './note-item-list';
-
-import { noteStore } from '../context';
+import { noteStore, refineTagStore } from '../context';
 
 export default class App extends Component {
-
-  // static get propTypes() { return {}; }
-
-  // static get defaultProps() { return {}; }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      notes: noteStore.getNotes()
-    }
+      notes: noteStore.getNotes(),
+      refineTag: refineTagStore.getTags()
+    };
 
-    this._boundChangeStore = this._changeStore.bind(this);
+    this._boundChangeNoteStore = this._changeNoteStore.bind(this);
+    this._boundChangeRefineTagStore = this._changeRefineTagStore.bind(this);
   }
 
   componentDidMount() {
-    noteStore.addChangeListener(this._boundChangeStore);
+    noteStore.addChangeListener(this._boundChangeNoteStore);
+    refineTagStore.addChangeListener(this._boundChangeRefineTagStore);
   }
 
   componentWillUnmount() {
-    noteStore.removeChangeListener(this._boundChangeStore);
+    noteStore.removeChangeListener(this._boundChangeNoteStore);
+    refineTagStore.removeChangeListener(this._boundChangeRefineTagStore);
   }
 
   render() {
-    const { notes } = this.state;
+    const { notes, refineTag } = this.state;
     return (
       <div className="app">
-        <header>header</header>
-        <NoteItemList notes={notes} />
-        <RouteHandler notes={notes} />
+        <header>noto</header>
+        <RouteHandler notes={notes} refineTag={refineTag} />
       </div>
     );
   }
 
-  _changeStore() {
+  _changeNoteStore() {
     this.setState({
       notes: noteStore.getNotes()
+    });
+  }
+
+  _changeRefineTagStore() {
+    this.setState({
+      refineTag: refineTagStore.getTags()
     });
   }
 

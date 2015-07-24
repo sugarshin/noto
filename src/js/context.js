@@ -4,6 +4,7 @@ import SettingActions from './actions/setting-actions';
 
 import NoteStore from './stores/note-store';
 import SettingStore from './stores/setting-store';
+import RefineTagStore from './stores/refine-tag-store';
 
 export default {
   noteListActions: new NoteListActions(),
@@ -11,5 +12,6 @@ export default {
   settingActions: new SettingActions(),
 
   noteStore: new NoteStore(),
-  settingStore: new SettingStore()
+  settingStore: new SettingStore(),
+  refineTagStore: new RefineTagStore()
 }

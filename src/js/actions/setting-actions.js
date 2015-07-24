@@ -4,15 +4,7 @@ import debounce from 'lodash.debounce';
 import dispatcher from '../dispatcher/dispatcher';
 import api from '../utils/api';
 
-import { ActionTypes, DEFAULT_STATE } from '../constants/constants';
-
-const {
-  FETCH_SETTINGS,
-  CHANGE_TEXT_COLOR,
-  CHANGE_TEXT_SIZE,
-  CHANGE_BACKGROUND_COLOR,
-  RESET_SETTINGS
-} = ActionTypes;
+import { ActionTypes, INITIAL_STORE } from '../constants/constants';
 
 const API_PATH = 'settings';
 const API_DEBOUNCE_TIME = 1000;
@@ -28,7 +20,7 @@ export default class SettingActions {
       const data = yield api.fetch(API_PATH);
 
       dispatcher.dispatch({
-        actionType: FETCH_SETTINGS,
+        actionType: ActionTypes.FETCH_SETTINGS,
         data
       });
     })
@@ -37,7 +29,7 @@ export default class SettingActions {
 
   changeTextColor(color) {
     dispatcher.dispatch({
-      actionType: CHANGE_TEXT_COLOR,
+      actionType: ActionTypes.CHANGE_TEXT_COLOR,
       color
     });
 
@@ -46,7 +38,7 @@ export default class SettingActions {
 
   changeTextSize(size) {
     dispatcher.dispatch({
-      actionType: CHANGE_TEXT_SIZE,
+      actionType: ActionTypes.CHANGE_TEXT_SIZE,
       size
     });
 
@@ -55,7 +47,7 @@ export default class SettingActions {
 
   changeBackgroundColor(backgroundColor) {
     dispatcher.dispatch({
-      actionType: CHANGE_BACKGROUND_COLOR,
+      actionType: ActionTypes.CHANGE_BACKGROUND_COLOR,
       backgroundColor
     });
 
@@ -63,10 +55,10 @@ export default class SettingActions {
   }
 
   reset() {
-    const { settings } = DEFAULT_STATE;
+    const { settings } = INITIAL_STORE;
 
     dispatcher.dispatch({
-      actionType: RESET_SETTINGS,
+      actionType: ActionTypes.RESET_SETTINGS,
       data: settings
     });
 

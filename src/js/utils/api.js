@@ -1,18 +1,18 @@
 import Promise from 'bluebird';
 import assign from 'object-assign';
 
-import { DEFAULT_STATE } from '../constants/constants';
+import { INITIAL_STORE } from '../constants/constants';
 
 import { name as NAMESPACE } from '../../../package';
 
-const STRINGIFY_DEFAULT_STATE = JSON.stringify(DEFAULT_STATE);
+const STRINGIFY_INITIAL_STORE = JSON.stringify(INITIAL_STORE);
 
 export default class api {
 
   static fetch(path) {
     return new Promise((resolve, reject) => {
       try {
-        const data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_DEFAULT_STATE);
+        const data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
         if (path) {
           resolve(data[path]);
         } else {
@@ -30,7 +30,7 @@ export default class api {
         if (path !== 'notes') {
           throw new Error('api.post() only notes');
         }
-        let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_DEFAULT_STATE);
+        let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
         data[path].push(payload);
         localStorage.setItem(NAMESPACE, JSON.stringify(data));
         resolve();
@@ -48,7 +48,7 @@ export default class api {
   static put(path, { id, updates }) {
     return new Promise((resolve, reject) => {
       try {
-        let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_DEFAULT_STATE);
+        let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
 
         if (path === 'notes') {
           data[path] = data[path].map(note => {
@@ -76,7 +76,7 @@ export default class api {
           throw new Error('api.post() only notes');
         }
 
-        let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_DEFAULT_STATE);
+        let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
         data.notes = data.notes.filter(note => note.id !== id);
         localStorage.setItem(NAMESPACE, JSON.stringify(data));
         resolve();

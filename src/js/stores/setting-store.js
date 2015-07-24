@@ -2,15 +2,7 @@ import EventEmitter from 'eventemitter3';
 import assign from 'object-assign';
 
 import dispatcher from '../dispatcher/dispatcher';
-import { ActionTypes, DEFAULT_STATE } from '../constants/constants';
-
-const {
-  FETCH_SETTINGS,
-  CHANGE_TEXT_COLOR,
-  CHANGE_TEXT_SIZE,
-  CHANGE_BACKGROUND_COLOR,
-  RESET_SETTINGS
-} = ActionTypes;
+import { ActionTypes } from '../constants/constants';
 
 const CHANGE_EVENT = 'change';
 
@@ -49,28 +41,28 @@ export default class SettingStore extends EventEmitter {
   _handler(action) {
     switch (action.actionType) {
 
-      case FETCH_SETTINGS:
+      case ActionTypes.FETCH_SETTINGS:
         this._fetch(action.data);
         this._emitChange();
         break;
 
-      case CHANGE_TEXT_COLOR:
+      case ActionTypes.CHANGE_TEXT_COLOR:
         this._update({color: action.color});
         this._emitChange();
         break;
 
-      case CHANGE_TEXT_SIZE:
+      case ActionTypes.CHANGE_TEXT_SIZE:
         this._update({size: action.size});
         this._emitChange();
         break;
 
-      case CHANGE_BACKGROUND_COLOR:
+      case ActionTypes.CHANGE_BACKGROUND_COLOR:
         this._update({backgroundColor: action.backgroundColor});
         this._emitChange();
         break;
 
-      case RESET_SETTINGS:
-        this._update(DEFAULT_STATE.settings);
+      case ActionTypes.RESET_SETTINGS:
+        this._update(action.data);
         this._emitChange();
         break;
 

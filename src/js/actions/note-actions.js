@@ -5,12 +5,6 @@ import api from '../utils/api';
 
 import { ActionTypes } from '../constants/constants';
 
-const {
-  UPDATE_TAG,
-  UPDATE_TITLE,
-  INPUT_TEXT
-} = ActionTypes;
-
 const API_PATH = 'notes';
 const API_DEBOUNCE_TIME = 1000;
 
@@ -22,7 +16,7 @@ export default class NoteActions {
 
   updateTag(id, tags) {
     dispatcher.dispatch({
-      actionType: UPDATE_TAG,
+      actionType: ActionTypes.UPDATE_TAG,
       id,
       tags
     });
@@ -32,7 +26,7 @@ export default class NoteActions {
 
   updateTitle(id, title) {
     dispatcher.dispatch({
-      actionType: UPDATE_TITLE,
+      actionType: ActionTypes.UPDATE_TITLE,
       id,
       title
     });
@@ -42,7 +36,7 @@ export default class NoteActions {
 
   inputText(id, text) {
     dispatcher.dispatch({
-      actionType: INPUT_TEXT,
+      actionType: ActionTypes.INPUT_TEXT,
       id,
       text
     });

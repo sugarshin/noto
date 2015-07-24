@@ -9,7 +9,7 @@ requireDir('./gulp/tasks');
 
 gulp.task('predefault', cb => {
   runSequence(
-    ['jade', 'stylus', 'copy:zeroclipboard', 'watchify'],
+    ['jade', 'stylus', 'watchify'],
     'serve',
     cb
   );
@@ -33,7 +33,7 @@ gulp.task('default', ['predefault'], () => {
 gulp.task('build', cb => {
   runSequence(
     'clean',
-    ['jade', 'stylus', 'copy:zeroclipboard'],
+    ['jade', 'stylus'],
     ['replace', 'minify-css', 'browserify'],
     'uglify',
     cb

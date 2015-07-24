@@ -62,13 +62,6 @@ export default {
     path: [`${D.DEST}`]
   },
 
-  copy: {
-    zeroclipboard: {
-      src: `./node_modules/zeroclipboard/dist/ZeroClipboard.swf`,
-      dest: `${D.DEST}`
-    }
-  },
-
   replace: {
     src: `${D.DEST}/index.html`,
     dest: `${D.DEST}`,

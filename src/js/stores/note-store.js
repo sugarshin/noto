@@ -3,17 +3,6 @@ import EventEmitter from 'eventemitter3';
 import dispatcher from '../dispatcher/dispatcher';
 import { ActionTypes } from '../constants/constants';
 
-const {
-  FETCH_NOTES,
-  CREATE_NOTE,
-  TRASH_NOTE,
-  RESTORE_NOTE,
-  DESTROY_NOTE,
-  UPDATE_TAG,
-  UPDATE_TITLE,
-  INPUT_TEXT
-} = ActionTypes;
-
 const CHANGE_EVENT = 'change';
 
 export default class NoteStore extends EventEmitter {
@@ -44,7 +33,7 @@ export default class NoteStore extends EventEmitter {
     this._notes = notes;
   }
 
-  _createNotes(note) {
+  _createNote(note) {
     this._notes.push(note);
   }
 
@@ -104,42 +93,42 @@ export default class NoteStore extends EventEmitter {
   _handler(action) {
     switch (action.actionType) {
 
-      case FETCH_NOTES:
+      case ActionTypes.FETCH_NOTES:
         this._fetchNotes(action.notes);
         this._emitChange();
         break;
 
-      case CREATE_NOTE:
-        this._createNotes(action.note);
+      case ActionTypes.CREATE_NOTE:
+        this._createNote(action.note);
         this._emitChange();
         break;
 
-      case TRASH_NOTE:
+      case ActionTypes.TRASH_NOTE:
         this._trashNote(action.id);
         this._emitChange();
         break;
 
-      case RESTORE_NOTE:
+      case ActionTypes.RESTORE_NOTE:
         this._restoreNote(action.id);
         this._emitChange();
         break;
 
-      case DESTROY_NOTE:
+      case ActionTypes.DESTROY_NOTE:
         this._destroyNote(action.id)
         this._emitChange();
         break;
 
-      case UPDATE_TAG:
+      case ActionTypes.UPDATE_TAG:
         this._updateTag(action.id, action.tags);
         this._emitChange();
         break;
 
-      case UPDATE_TITLE:
+      case ActionTypes.UPDATE_TITLE:
         this._updateTitle(action.id, action.title);
         this._emitChange();
         break;
 
-      case INPUT_TEXT:
+      case ActionTypes.INPUT_TEXT:
         this._inputText(action.id, action.text);
         this._emitChange();
         break;

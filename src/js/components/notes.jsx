@@ -1,0 +1,76 @@
+import React, { Component, PropTypes } from 'react';
+import Select from 'react-select';
+import assign from 'object-assign';
+
+import NoteItemList from './note-item-list';
+import Note from './note';
+import { noteListActions } from '../context';
+import { DEFAULT_NOTE } from '../constants/constants';
+
+export default class Notes extends Component {
+
+  static get propTypes() {
+    return {
+      notes: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        title: PropTypes.string,
+        body: PropTypes.string,
+        createdAt: PropTypes.string,
+        trashed: PropTypes.bool,
+        visible: PropTypes.bool,
+        tags: PropTypes.arrayOf(PropTypes.string)
+      })),
+      refineTag: PropTypes.arrayOf(PropTypes.string)
+    };
+  }
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { notes, refineTag, params } = this.props;
+    const note = this._findWhereNote(notes, params.id) || DEFAULT_NOTE;
+    const options = this._getSelectOptions(notes);
+
+    return (
+      <div className="notes-container">
+        <Select options={options}
+                value={refineTag.join(',')}
+                multi={true}
+                onChange={this._handleChangeRefineTags.bind(this)}></Select>
+        <NoteItemList notes={notes} refineTag={refineTag} />
+        <Note note={note} />
+      </div>
+    );
+  }
+
+  _getSelectOptions(notes) {
+    return notes.map(note => {
+      if (note.trashed === false) {
+        return note.tags;
+      }
+    }).reduce((a, b) => {
+      return a.concat(b);
+    }, []).filter((el, i, array) => {
+      return array.indexOf(el) === i;
+    }).map(tag => {
+      return {value: tag, label: tag};
+    });
+  }
+
+  _findWhereNote(notes, id) {
+    for (let i = 0, l = notes.length; i < l; i++) {
+      const note = notes[i];
+      if (note.id === id) {
+        return note;
+      }
+    }
+    return null;
+  }
+
+  _handleChangeRefineTags(value) {
+    noteListActions.updateRefineTag(value.split(','));
+  }
+
+}

@@ -1,13 +1,17 @@
 import React from 'react';
-import { Route, Redirect, NotFoundRoute } from 'react-router';
+import { Route, DefaultRoute } from 'react-router';
 
 import App from '../components/app';
-import Note from '../components/note';
+import NotesIndex from '../components/notes-index';
+import Notes from '../components/notes';
+import TrashedNotes from '../components/trashed-notes';
 // import NotFound from '../components/notfound';
 
 export default (
   <Route path="/" handler={App}>
-    <Route name="notes" path="notes/:id" handler={Note} />
+    <Route name="notes" path="notes/:id" handler={Notes} />
+    <Route name="trashed-notes" path="trashed" handler={TrashedNotes} />
+    <DefaultRoute name="notes-index" handler={NotesIndex} />
   </Route>
 )
-  //  <Route name="trash" path="trash/notes/:id" handler={TrashedNotes} />
+    // <Route name="trashed-notes" path="trashed/notes/:id" handler={TrashedNotes} />

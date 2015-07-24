@@ -1,7 +1,16 @@
 import keyMirror from 'react/lib/keyMirror';
 
 export default {
-  DEFAULT_STATE: {
+  DEFAULT_NOTE: {
+    id: '',
+    title: 'UNTITLED',
+    body: '',
+    createdAt: '',
+    trashed: false,
+    visible: true,
+    tags: []
+  },
+  INITIAL_STORE: {
     notes: [],
     settings: {
       color: '#555',
@@ -26,6 +35,7 @@ export default {
     RESET_SETTINGS: null,
 
     FETCH_NOTES: null,
-    FETCH_SETTINGS: null
+    FETCH_SETTINGS: null,
+    UPDATE_REFINE_TAG: null
   })
 };

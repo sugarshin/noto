@@ -1,13 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
+import TrashedNoteItem from './trashed-note-item';
+
 import { noteListActions } from '../context';
 
-export default class NoteItem extends Component {
+export default class TrashedNoteItemList extends Component {
 
   static get propTypes() {
     return {
-      note: PropTypes.shape({
+      notes: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
         title: PropTypes.string,
         body: PropTypes.string,
@@ -15,7 +17,7 @@ export default class NoteItem extends Component {
         trashed: PropTypes.bool,
         visible: PropTypes.bool,
         tags: PropTypes.arrayOf(PropTypes.string)
-      })
+      }))
     };
   }
 
@@ -24,22 +26,18 @@ export default class NoteItem extends Component {
   }
 
   render() {
-    const { id, title, body, createdAt } = this.props.note;
-
     return (
-      <div className="note-item-container">
-        <Link to="notes" params={{ id }}>
-          <div>{title}</div>
-          <div>{`${body.slice(0, 16)}...`}</div>
-          <div>{createdAt}</div>
-        </Link>
-        <button type="button" onClick={this._handleClickTrashButton.bind(this)}>to Trash</button>
+      <div className="note-list-container" style={{float: 'left', width: '50%'}}>
+        <div className="note-list">
+          {this.props.notes.map(note => {
+            if (note.trashed === true) {
+              return <TrashedNoteItem note={note} key={note.id} />
+            }
+          })}
+        </div>
+        <footer><Link to="notes-index">ノート</Link></footer>
       </div>
     );
-  }
-
-  _handleClickTrashButton() {
-    noteListActions.trashNote(this.props.note.id);
   }
 
 }
