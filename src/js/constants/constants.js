@@ -7,7 +7,6 @@ export default {
     body: '',
     createdAt: '',
     trashed: false,
-    visible: true,
     tags: []
   },
   INITIAL_STORE: {

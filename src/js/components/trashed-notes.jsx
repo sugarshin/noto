@@ -13,7 +13,6 @@ export default class TrashedNotes extends Component {
         body: PropTypes.string,
         createdAt: PropTypes.string,
         trashed: PropTypes.bool,
-        visible: PropTypes.bool,
         tags: PropTypes.arrayOf(PropTypes.string)
       }))
     };

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import assign from 'object-assign';
+import strftime from 'strftime';
 
 import NoteItem from './note-item';
 import { noteListActions } from '../context';
@@ -16,7 +17,6 @@ export default class NoteItemList extends Component {
         body: PropTypes.string,
         createdAt: PropTypes.string,
         trashed: PropTypes.bool,
-        visible: PropTypes.bool,
         tags: PropTypes.arrayOf(PropTypes.string)
       })),
       refineTag: PropTypes.arrayOf(PropTypes.string)
@@ -48,20 +48,16 @@ export default class NoteItemList extends Component {
 
   _handleClickAddButton() {
     noteListActions.createNote(assign({}, DEFAULT_NOTE, {
-      createdAt: `${new Date()}`
+      createdAt: strftime('%Y-%m-%d %H:%M:%S')
     }));
   }
 
-  _includesRefineTag(note, tags) {
-    if (tags.length === 1 && tags[0] === '') {
+  _includesRefineTag(note, refineTag) {
+    if (refineTag.length === 1 && refineTag[0] === '') {
       return true;
     }
-    for (let i = 0, l = note.tags.length; i < l; i++) {
-      if (tags.indexOf(note.tags[i]) > -1) {
-        return true;
-      }
-    }
-    return false;
+    const { tags } = note;
+    return refineTag.every(el => tags.indexOf(el) > -1);
   }
 
 }

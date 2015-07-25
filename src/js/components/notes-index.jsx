@@ -15,7 +15,6 @@ export default class NotesIndex extends Component {
         body: PropTypes.string,
         createdAt: PropTypes.string,
         trashed: PropTypes.bool,
-        visible: PropTypes.bool,
         tags: PropTypes.arrayOf(PropTypes.string)
       })),
       refineTag: PropTypes.arrayOf(PropTypes.string)
