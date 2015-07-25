@@ -26,10 +26,10 @@ export default class Note extends Component {
     super(props);
 
     this.state = {
-      editingTitle: false
+      isEditingTitle: false
     };
 
-    this._throttledHandleChangeTag = throttle(this._handleChangeTag, 400);
+    this._throttledInputText = throttle(noteActions.inputText, 400).bind(noteActions);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -45,7 +45,7 @@ export default class Note extends Component {
     return (
       <div className="note-container" style={{float: 'left', width: '50%'}}>
         <div className={classnames('note-title-wrapper', {
-          editing: this.state.editingTitle
+          editing: this.state.isEditingTitle
         })}>
           <div className="note-title"
                onClick={this._handleClickTitle.bind(this)}>
@@ -61,7 +61,7 @@ export default class Note extends Component {
                 allowCreate={true}
                 placeholder="Add tag..."
                 noResultsText=""
-                onChange={this._throttledHandleChangeTag.bind(this)}></Select>
+                onChange={this._handleChangeTag.bind(this)}></Select>
         <textarea ref="textarea"
                   defaultValue={body}
                   onChange={this._handleChangeText.bind(this)}
@@ -73,18 +73,17 @@ export default class Note extends Component {
     );
   }
 
-  _handleBlurTitleEditor() {
-    this._toggleTitleEditingMode()
-  }
-
   _handleChangeTitle(ev) {
     noteActions.updateTitle(this.props.note.id, ev.currentTarget.value);
   }
 
   _handleClickTitle() {
-    this._toggleTitleEditingMode();
-
+    this._toggleTitleEditingMode(true);
     findDOMNode(this.refs['title-editor']).value = this.props.note.title;
+  }
+
+  _handleBlurTitleEditor() {
+    this._toggleTitleEditingMode();
   }
 
   _handleChangeTag(value) {
@@ -92,12 +91,16 @@ export default class Note extends Component {
   }
 
   _handleChangeText(ev) {
-    noteActions.inputText(this.props.note.id, ev.currentTarget.value);
+    this._throttledInputText(this.props.note.id, ev.currentTarget.value);
   }
 
-  _toggleTitleEditingMode() {
-    this.setState({
-      editingTitle: !this.state.editingTitle
+  _toggleTitleEditingMode(isFocus) {
+    this.setState(previousState => {
+      return {isEditingTitle: !previousState.isEditingTitle};
+    }, () => {
+      if (isFocus === true) {
+        findDOMNode(this.refs['title-editor']).focus();
+      }
     });
   }
 

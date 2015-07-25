@@ -1,5 +1,5 @@
-import regeneratorRuntime from 'babel-runtime/regenerator';
 import Promise from 'bluebird';
+import regeneratorRuntime from 'babel-runtime/regenerator';
 import React from 'react';
 import { run, HashLocation } from 'react-router';
 

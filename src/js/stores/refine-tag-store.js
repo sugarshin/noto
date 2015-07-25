@@ -9,7 +9,6 @@ export default class RefineTagStore extends EventEmitter {
 
   constructor() {
     super();
-
     this._tags = [''];
     dispatcher.register(this._handler.bind(this));
   }

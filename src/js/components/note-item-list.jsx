@@ -36,7 +36,7 @@ export default class NoteItemList extends Component {
         <div className="note-list">
           {this.props.notes.map(note => {
             if (note.trashed === false &&
-                this._includesRefineTag(note, refineTag)) {
+            this._includesRefineTag(note, refineTag)) {
               return <NoteItem note={note} key={note.id} />
             }
           })}
