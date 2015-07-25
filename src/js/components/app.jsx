@@ -31,7 +31,7 @@ export default class App extends Component {
     const { notes, refineTag } = this.state;
     return (
       <div className="app">
-        <header>noto</header>
+        <header><a href="./">noto</a></header>
         <RouteHandler notes={notes} refineTag={refineTag} />
       </div>
     );
