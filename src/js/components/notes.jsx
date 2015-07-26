@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import Select from 'react-select';
 import assign from 'object-assign';
 
+import Setting from './setting';
 import NoteItemList from './note-item-list';
 import Note from './note';
 import { noteListActions } from '../context';
@@ -19,6 +21,11 @@ export default class Notes extends Component {
         trashed: PropTypes.bool,
         tags: PropTypes.arrayOf(PropTypes.string)
       })),
+      setting: PropTypes.shape({
+        color: PropTypes.string,
+        size: PropTypes.number,
+        backgroundColor: PropTypes.string
+      }),
       refineTag: PropTypes.arrayOf(PropTypes.string)
     };
   }
@@ -28,18 +35,20 @@ export default class Notes extends Component {
   }
 
   render() {
-    const { notes, refineTag, params } = this.props;
+    const { notes, setting, refineTag, params } = this.props;
     const note = this._findWhereNote(notes, params.id) || DEFAULT_NOTE;
     const options = this._getSelectOptions(notes);
 
     return (
       <div className="notes-container">
+        <Setting setting={setting} />
         <Select options={options}
                 value={refineTag.join(',')}
                 multi={true}
                 onChange={this._handleChangeRefineTags.bind(this)}></Select>
         <NoteItemList notes={notes} refineTag={refineTag} />
-        <Note note={note} />
+        <Note note={note} setting={setting} />
+        <footer><Link to="trashed-notes">ゴミ箱</Link></footer>
       </div>
     );
   }

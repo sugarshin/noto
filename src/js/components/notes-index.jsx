@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import Select from 'react-select';
 import assign from 'object-assign';
 
+import Setting from './setting';
 import NoteItemList from './note-item-list';
 import { noteListActions } from '../context';
 
@@ -17,6 +19,11 @@ export default class NotesIndex extends Component {
         trashed: PropTypes.bool,
         tags: PropTypes.arrayOf(PropTypes.string)
       })),
+      setting: PropTypes.shape({
+        color: PropTypes.string,
+        size: PropTypes.number,
+        backgroundColor: PropTypes.string
+      }),
       refineTag: PropTypes.arrayOf(PropTypes.string)
     };
   }
@@ -26,17 +33,19 @@ export default class NotesIndex extends Component {
   }
 
   render() {
-    const { notes, refineTag } = this.props;
+    const { notes, setting, refineTag } = this.props;
 
     const options = this._getSelectOptions(notes);
 
     return (
       <div className="notes-container">
+        <Setting setting={setting} />
         <Select options={options}
                 value={refineTag.join(',')}
                 multi={true}
                 onChange={this._handleChangeRefineTags.bind(this)}></Select>
         <NoteItemList notes={notes} refineTag={refineTag} />
+        <footer><Link to="trashed-notes">ゴミ箱</Link></footer>
       </div>
     );
   }

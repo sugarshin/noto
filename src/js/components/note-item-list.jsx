@@ -32,7 +32,9 @@ export default class NoteItemList extends Component {
     return (
       <div className="note-list-container" style={{float: 'left', width: '50%'}}>
         <button type="button"
-                onClick={this._handleClickAddButton.bind(this)}>add</button>
+                onClick={this._handleClickAddButton.bind(this)}>
+          <span className="octicon octicon-plus"></span>
+        </button>
         <div className="note-list">
           {this.props.notes.map(note => {
             if (note.trashed === false &&
@@ -41,7 +43,6 @@ export default class NoteItemList extends Component {
             }
           })}
         </div>
-        <footer><Link to="trashed-notes">ゴミ箱</Link></footer>
       </div>
     );
   }

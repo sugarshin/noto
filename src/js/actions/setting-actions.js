@@ -16,7 +16,7 @@ export default class SettingActions {
   }
 
   fetch() {
-    return co(function* _fetch_() {
+    co(function* __fetch__() {
       const data = yield api.fetch(API_PATH);
 
       dispatcher.dispatch({

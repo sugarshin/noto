@@ -13,11 +13,13 @@ export default {
     notes: [],
     settings: {
       color: '#555',
-      size: 13,
+      size: 16,
       backgroundColor: '#eee'
     }
   },
-
+  FONT_SIZE_VARIATION: [
+    9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 24, 28, 32, 40, 48, 64
+  ],
   ActionTypes: keyMirror({
     CREATE_NOTE: null,
     TRASH_NOTE: null,

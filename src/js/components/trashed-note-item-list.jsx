@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 
 import TrashedNoteItem from './trashed-note-item';
 
@@ -34,7 +33,6 @@ export default class TrashedNoteItemList extends Component {
             }
           })}
         </div>
-        <footer><Link to="notes-index">ノート</Link></footer>
       </div>
     );
   }

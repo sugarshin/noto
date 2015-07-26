@@ -10,7 +10,7 @@ import TrashedNotes from '../components/trashed-notes';
 export default (
   <Route path="/" handler={App}>
     <Route name="notes" path="notes/:id" handler={Notes} />
-    <Route name="trashed-notes" path="trashed" handler={TrashedNotes} />
+    <Route name="trashed-notes" path="trash" handler={TrashedNotes} />
     <DefaultRoute name="notes-index" handler={NotesIndex} />
   </Route>
 )

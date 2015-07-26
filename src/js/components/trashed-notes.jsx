@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import assign from 'object-assign';
 
 import TrashedNoteItemList from './trashed-note-item-list';
@@ -28,6 +29,7 @@ export default class TrashedNotes extends Component {
     return (
       <div className="notes-container">
         <TrashedNoteItemList notes={notes} />
+        <footer><Link to="notes-index">ノート</Link></footer>
       </div>
     );
   }

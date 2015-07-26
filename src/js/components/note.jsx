@@ -1,6 +1,7 @@
 import React, { Component, PropTypes, findDOMNode } from 'react';
 import Select from 'react-select';
 import ZeroClipboard from 'react-zeroclipboard';
+
 import throttle from 'lodash.throttle';
 import assign from 'object-assign';
 import classnames from 'classnames';
@@ -26,7 +27,8 @@ export default class Note extends Component {
     super(props);
 
     this.state = {
-      isEditingTitle: false
+      isEditingTitle: false,
+      isCopied: false
     };
 
     this._throttledInputText = throttle(noteActions.inputText, 400).bind(noteActions);
@@ -40,7 +42,7 @@ export default class Note extends Component {
   }
 
   render() {
-    const { title, body, createdAt, tags } = this.props.note;
+    const { note, setting } = this.props;
 
     return (
       <div className="note-container" style={{float: 'left', width: '50%'}}>
@@ -49,26 +51,38 @@ export default class Note extends Component {
         })}>
           <div className="note-title"
                onClick={this._handleClickTitle.bind(this)}>
-             {title}
+             {note.title}
              <span className="octicon octicon-pencil"></span>
           </div>
-          <input ref="title-editor" type="text" className="note-title-editor" onChange={this._handleChangeTitle.bind(this)}
-            onBlur={this._handleBlurTitleEditor.bind(this)}/>
+          <input ref="title-editor"
+                 type="text"
+                 className="note-title-editor"
+                 onChange={this._handleChangeTitle.bind(this)}
+                 onBlur={this._handleBlurTitleEditor.bind(this)} />
         </div>
-        <div className="note-created-at">{createdAt}</div>
-        <Select value={tags.join(',')}
+        <div className="note-created-at">{note.createdAt}</div>
+        <Select value={note.tags.join(',')}
                 multi={true}
                 allowCreate={true}
                 placeholder="Add tag..."
                 noResultsText=""
                 onChange={this._handleChangeTag.bind(this)}></Select>
         <textarea ref="textarea"
-                  defaultValue={body}
+                  defaultValue={note.body}
                   onChange={this._handleChangeText.bind(this)}
-                  style={{width: '100%', height: '600px'}}></textarea>
-        <ZeroClipboard text={body}>
-          <button type="button">Copy to clipboard</button>
+                  style={{width: '100%', height: '600px', color: setting.color, backgroundColor: setting.backgroundColor, fontSize: setting.size}}></textarea>
+        <ZeroClipboard text={note.body} onAfterCopy={this._handleAfterCopy.bind(this)}>
+          <button className="button-base" type="button">
+            <span className="octicon octicon-clippy"></span>
+            <span>Copy to clipboard</span>
+          </button>
         </ZeroClipboard>
+        <span className={classnames('success-copy-wrapper', {
+          'success-copy-visible': this.state.isCopied
+        })}>
+          <span className="octicon octicon-check"></span>
+          <span>Copied!</span>
+        </span>
       </div>
     );
   }
@@ -92,6 +106,18 @@ export default class Note extends Component {
 
   _handleChangeText(ev) {
     this._throttledInputText(this.props.note.id, ev.currentTarget.value);
+  }
+
+  _handleAfterCopy() {
+    this.setState({
+      isCopied: true
+    });
+    // TODO
+    setTimeout(() => {
+      this.setState({
+        isCopied: false
+      });
+    }, 3000);
   }
 
   _toggleTitleEditingMode(isFocus) {
