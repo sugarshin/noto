@@ -21,8 +21,6 @@ export default class Setting extends Component {
     super(props);
   }
 
-  componentDidUpdate(prevProps, prevState) {}
-
   render() {
     const { color, size, backgroundColor } = this.props.setting;
     const options = FONT_SIZE_VARIATION.map(size => {

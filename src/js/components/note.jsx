@@ -68,9 +68,14 @@ export default class Note extends Component {
                 noResultsText=""
                 onChange={this._handleChangeTag.bind(this)}></Select>
         <textarea ref="textarea"
+                  className="note-textarea"
                   defaultValue={note.body}
                   onChange={this._handleChangeText.bind(this)}
-                  style={{width: '100%', height: '600px', color: setting.color, backgroundColor: setting.backgroundColor, fontSize: setting.size}}></textarea>
+                  style={{
+                    color: setting.color,
+                    backgroundColor: setting.backgroundColor,
+                    fontSize: setting.size
+                  }}></textarea>
         <ZeroClipboard text={note.body} onAfterCopy={this._handleAfterCopy.bind(this)}>
           <button className="button-base" type="button">
             <span className="octicon octicon-clippy"></span>
