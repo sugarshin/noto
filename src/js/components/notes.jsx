@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import Helmet from 'react-helmet';
 import Select from 'react-select';
 import assign from 'object-assign';
 
@@ -8,6 +9,7 @@ import NoteItemList from './note-item-list';
 import Note from './note';
 import { noteListActions } from '../context';
 import { DEFAULT_NOTE } from '../constants/constants';
+import { baseTitle } from '../config/settings';
 
 export default class Notes extends Component {
 
@@ -41,6 +43,7 @@ export default class Notes extends Component {
 
     return (
       <div className="notes-container">
+        <Helmet title={`${note.title} | Notes | ${baseTitle}`} />
         <Setting setting={setting} />
         <Select options={options}
                 value={refineTag.join(',')}
