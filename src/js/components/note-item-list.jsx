@@ -28,21 +28,21 @@ export default class NoteItemList extends Component {
   }
 
   render() {
-    const { refineTag } = this.props;
+    const { notes, refineTag } = this.props;
+    const noteItems = notes.map(note => {
+      if (note.trashed === false &&
+      this._includesRefineTag(note, refineTag)) {
+        return <NoteItem note={note} key={note.id} />
+      }
+    });
+
     return (
       <div className="note-list-container" style={{float: 'left', width: '50%'}}>
         <button type="button"
                 onClick={this._handleClickAddButton.bind(this)}>
           <span className="octicon octicon-plus"></span>
         </button>
-        <div className="note-list">
-          {this.props.notes.map(note => {
-            if (note.trashed === false &&
-            this._includesRefineTag(note, refineTag)) {
-              return <NoteItem note={note} key={note.id} />
-            }
-          })}
-        </div>
+        <div className="note-list">{noteItems}</div>
       </div>
     );
   }
