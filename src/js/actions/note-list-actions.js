@@ -12,13 +12,16 @@ export default class NoteListActions {
 
   fetch() {
     co(function* __fetch__() {
-      const notes = yield api.fetch(API_PATH);
-      dispatcher.dispatch({
-        actionType: ActionTypes.FETCH_NOTES,
-        notes
-      });
-    })
-    .catch(err => console.log('NoteListActions#fetch:\n', err));
+      try {
+        const notes = yield api.fetch(API_PATH);
+        dispatcher.dispatch({
+          actionType: ActionTypes.FETCH_NOTES,
+          notes
+        });
+      } catch (err) {
+        console.log('NoteListActions#fetch:\n', err);
+      }
+    });
   }
 
   createNote(note) {

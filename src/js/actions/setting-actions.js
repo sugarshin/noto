@@ -17,14 +17,17 @@ export default class SettingActions {
 
   fetch() {
     co(function* __fetch__() {
-      const data = yield api.fetch(API_PATH);
+      try {
+        const data = yield api.fetch(API_PATH);
 
-      dispatcher.dispatch({
-        actionType: ActionTypes.FETCH_SETTINGS,
-        data
-      });
-    })
-    .catch(err => console.log('SettingActions#fetch:\n', err));
+        dispatcher.dispatch({
+          actionType: ActionTypes.FETCH_SETTINGS,
+          data
+        });
+      } catch (err) {
+        console.log('SettingActions#fetch:\n', err);
+      }
+    });
   }
 
   changeTextColor(color) {
