@@ -33,6 +33,7 @@
     "react": "~0.13.3",
     "react-color-picker": "^2.1.9",
     "react-helmet": "^1.1.0",
+    "react-modal": "^0.3.0",
     "react-router": "^0.13.3",
     "react-select": "^0.5.5",
     "react-zeroclipboard": "^2.0.1",

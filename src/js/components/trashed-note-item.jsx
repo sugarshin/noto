@@ -29,10 +29,8 @@ export default class TrashedNoteItem extends Component {
         <div>{title}</div>
         <div>{`${body.slice(0, 16)}...`}</div>
         <div>{createdAt}</div>
-        <button type="button"
-                onClick={this._handleClickRestoreButton.bind(this)}>Restore</button>
-        <button type="button"
-                onClick={this._handleClickDestroyButton.bind(this)}>Destroy</button>
+        <button onClick={this._handleClickRestoreButton.bind(this)}>Restore</button>
+        <button onClick={this._handleClickDestroyButton.bind(this)}>Destroy</button>
       </div>
     );
   }
@@ -42,7 +40,7 @@ export default class TrashedNoteItem extends Component {
   }
 
   _handleClickDestroyButton() {
-    if (confirm('Are you sure ?\nよろしいですか？')) {
+    if (confirm('Are you sure ?')) {
       noteListActions.destroyNote(this.props.note.id);
     }
   }

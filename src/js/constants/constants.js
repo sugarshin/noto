@@ -1,6 +1,7 @@
 import keyMirror from 'react/lib/keyMirror';
 
 export default {
+  APP_ELEMENT_ID: 'container',
   DEFAULT_NOTE: {
     id: '',
     title: 'UNTITLED',

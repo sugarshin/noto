@@ -29,7 +29,7 @@ export default class CopyButton extends Component {
     return (
       <div className="note-copy-button">
         <ZeroClipboard text={this.props.note.body} onAfterCopy={this._handleAfterCopy.bind(this)}>
-          <button className="button-base" type="button">
+          <button className="button-base">
             <span className="octicon octicon-clippy"></span>
             <span>Copy to clipboard</span>
           </button>
