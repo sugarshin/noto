@@ -4,7 +4,7 @@
   "scripts": {
     "start": "gulp",
     "test": "mocha -r mock-local-storage --compilers js:espower-babel/guess src/js/__test__/**/*.js",
-    "b": "gulp build",
+    "b": "NODE_ENV=production gulp build",
     "pub": "git subtree push -P public --squash origin gh-pages"
   },
   "repository": {
@@ -32,7 +32,7 @@
     "object-assign": "^3.0.0",
     "react": "~0.13.3",
     "react-color-picker": "^2.1.9",
-    "react-helmet": "^1.1.0",
+    "react-document-title": "^1.0.2",
     "react-modal": "^0.3.0",
     "react-router": "^0.13.3",
     "react-select": "^0.5.6",
