@@ -38,10 +38,11 @@ export default class Note extends Component {
     const { note, setting } = this.props;
 
     return (
-      <div className="note-container" style={{float: 'left', width: '50%'}}>
+      <div className="note-container">
         <NoteTitle note={{id: note.id, title: note.title}} />
         <div className="note-created-at">{note.createdAt}</div>
-        <Select value={note.tags.join(',')}
+        <Select className="note-tags"
+                value={note.tags.join(',')}
                 multi={true}
                 allowCreate={true}
                 placeholder="Add tag..."

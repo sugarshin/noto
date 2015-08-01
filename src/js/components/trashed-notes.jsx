@@ -32,7 +32,6 @@ export default class TrashedNotes extends Component {
       <DocumentTitle title={`Trash box | ${baseTitle}`}>
         <div className="notes-container">
           <TrashedNoteItemList notes={notes} />
-          <footer><Link to="notes-index">ノート</Link></footer>
         </div>
       </DocumentTitle>
     );

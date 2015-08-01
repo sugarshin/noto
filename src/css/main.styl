@@ -6,41 +6,17 @@ normalize-css()
 
 @import "_import/_vars"
 @import "_import/_base"
+@import "_import/_partials"
 
 @import "_components/header"
+@import "_components/footer"
+@import "_components/notes"
 @import "_components/note"
+@import "_components/note-list"
 @import "_components/setting"
 @import "_components/modal"
 @import "_components/select"
 @import "../../node_modules/react-color-picker/style/index"
 
-.button-base
-  margin 0
-  outline none
-  appearance none
-  font-size .7em
-  padding 8px
-  color $baseColorLevel5
-  border 1px solid $baseColorLevel3
-  background-color transparent
-  border-bottom-width 3px
-  &:hover,
-  &.zeroclipboard-is-hover
-    background-color $baseColorLevel3
-  .octicon
-    margin 0 .3em 0 0
-
-.success-copy-wrapper
-  display none
-  margin-left .5em
-  &.success-copy-visible
-    display inline-block
-    animation-duration 3s
-    animation-name success-copy
-    animation-fill-mode forwards
-
-@keyframes success-copy
-  0%
-    opacity 1
-  100%
-    opacity 0
+html, body, .container, .app, .notes-container
+  height 100%

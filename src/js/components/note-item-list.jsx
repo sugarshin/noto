@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import Select from 'react-select';
 import assign from 'object-assign';
 import strftime from 'strftime';
 
@@ -32,25 +33,73 @@ export default class NoteItemList extends Component {
     const noteItems = notes.map(note => {
       if (note.trashed === false &&
       this._includesRefineTag(note, refineTag)) {
-        return <NoteItem note={note} key={note.id} />
+        return <NoteItem note={note} key={note.id} />;
       }
     });
 
+    const options = this._getSelectOptions(notes);
+
     return (
-      <div className="note-list-container" style={{float: 'left', width: '50%'}}>
-        <button className="button-base"
-                onClick={this._handleClickAddButton.bind(this)}>
-          <span className="octicon octicon-file-text"></span>
-          <span>Create</span>
-        </button>
-        <div className="note-list">{noteItems}</div>
+      <div className="note-list-container">
+        <div className="note-list-header">
+          <div className="note-list-link">
+            <ul>
+              <li>
+                <Link to="index">
+                  <span className="octicon octicon-repo"></span>
+                </Link>
+              </li>
+              <li>
+                <Link to="trashed-notes">
+                  <span className="octicon octicon-trashcan"></span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <Select className="note-list-select"
+                  options={options}
+                  value={refineTag.join(',')}
+                  multi={true}
+                  onChange={this._handleChangeRefineTags.bind(this)}></Select>
+
+          <div className="note-list-controller">
+            <button className="button-base"
+                    onClick={this._handleClickAddButton.bind(this)}>
+              <span className="octicon octicon-file-text"></span>
+              <span>Create</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="note-list">
+          <div className="note-list-inner">{noteItems}</div>
+        </div>
       </div>
     );
   }
 
+  _getSelectOptions(notes) {
+    return notes.map(note => {
+      if (note.trashed === false) {
+        return note.tags;
+      }
+    }).reduce((a, b) => {
+      return a.concat(b);
+    }, []).filter((el, i, array) => {
+      return array.indexOf(el) === i;
+    }).map(tag => {
+      return {value: tag, label: tag};
+    });
+  }
+
+  _handleChangeRefineTags(value) {
+    noteListActions.updateRefineTag(value.split(','));
+  }
+
   _handleClickAddButton() {
     noteListActions.createNote(assign({}, DEFAULT_NOTE, {
-      createdAt: strftime('%Y-%m-%d %H:%M:%S')
+      createdAt: strftime('%Y-%m-%d %H:%M')
     }));
   }
 

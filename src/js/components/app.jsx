@@ -47,7 +47,7 @@ export default class App extends Component {
       <div className="app">
         <header className="header"><a href="./">noto</a></header>
         <RouteHandler notes={notes} setting={setting} refineTag={refineTag} />
-        <footer>
+        <footer className="footer">
           <p><small>© noto | github.com/sugarshin</small></p>
         </footer>
       </div>

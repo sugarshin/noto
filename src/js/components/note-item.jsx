@@ -28,15 +28,17 @@ export default class NoteItem extends Component {
     return (
       <div className="note-item-container">
         <Link to="notes" params={{ id }}>
-          <div>{title}</div>
-          <div>{`${body.slice(0, 16)}...`}</div>
-          <div>{createdAt}</div>
+          <div className="note-item-title">{title}</div>
+          <div className="note-item-body">{`${body.slice(0, 13)}...`}</div>
+          <div className="note-item-created-at">{createdAt}</div>
         </Link>
-        <button className="button-base"
-                onClick={this._handleClickTrashButton.bind(this)}>
-          <span className="octicon octicon-trashcan"></span>
-          <span>Trash</span>
-        </button>
+        <div className="note-item-button">
+          <button className="button-base"
+                  onClick={this._handleClickTrashButton.bind(this)}>
+            <span className="octicon octicon-trashcan"></span>
+            <span>Trash</span>
+          </button>
+        </div>
       </div>
     );
   }

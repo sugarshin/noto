@@ -7,7 +7,6 @@ import assign from 'object-assign';
 import Setting from './setting';
 import NoteItemList from './note-item-list';
 import Note from './note';
-import { noteListActions } from '../context';
 import { DEFAULT_NOTE } from '../constants/constants';
 import { baseTitle } from '../config/settings';
 
@@ -39,36 +38,16 @@ export default class Notes extends Component {
   render() {
     const { notes, setting, refineTag, params } = this.props;
     const note = this._findWhereNote(notes, params.id) || DEFAULT_NOTE;
-    const options = this._getSelectOptions(notes);
 
     return (
       <DocumentTitle title={`${note.title} | Notes | ${baseTitle}`}>
         <div className="notes-container">
           <Setting setting={setting} />
-          <Select options={options}
-                  value={refineTag.join(',')}
-                  multi={true}
-                  onChange={this._handleChangeRefineTags.bind(this)}></Select>
           <NoteItemList notes={notes} refineTag={refineTag} />
           <Note note={note} setting={setting} />
-          <footer><Link to="trashed-notes">ゴミ箱</Link></footer>
         </div>
       </DocumentTitle>
     );
-  }
-
-  _getSelectOptions(notes) {
-    return notes.map(note => {
-      if (note.trashed === false) {
-        return note.tags;
-      }
-    }).reduce((a, b) => {
-      return a.concat(b);
-    }, []).filter((el, i, array) => {
-      return array.indexOf(el) === i;
-    }).map(tag => {
-      return {value: tag, label: tag};
-    });
   }
 
   _findWhereNote(notes, id) {
@@ -79,10 +58,6 @@ export default class Notes extends Component {
       }
     }
     return null;
-  }
-
-  _handleChangeRefineTags(value) {
-    noteListActions.updateRefineTag(value.split(','));
   }
 
 }

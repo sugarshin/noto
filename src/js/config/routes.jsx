@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, DefaultRoute } from 'react-router';
+import { Route } from 'react-router';
 
 import App from '../components/app';
 import NotesIndex from '../components/notes-index';
@@ -9,9 +9,8 @@ import TrashedNotes from '../components/trashed-notes';
 
 export default (
   <Route path="/" handler={App}>
+    <Route name="index" path="/" handler={NotesIndex} />
     <Route name="notes" path="notes/:id" handler={Notes} />
     <Route name="trashed-notes" path="trash" handler={TrashedNotes} />
-    <DefaultRoute name="notes-index" handler={NotesIndex} />
   </Route>
 )
-    // <Route name="trashed-notes" path="trashed/notes/:id" handler={TrashedNotes} />

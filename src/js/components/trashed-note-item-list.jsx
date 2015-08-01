@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 import TrashedNoteItem from './trashed-note-item';
 
@@ -24,14 +25,33 @@ export default class TrashedNoteItemList extends Component {
   }
 
   render() {
+    const { notes } = this.props;
+    const trashedNoteItems = notes.map(note => {
+      if (note.trashed === true) {
+        return <TrashedNoteItem note={note} key={note.id} />;
+      }
+    });
+
     return (
-      <div className="note-list-container" style={{float: 'left', width: '50%'}}>
+      <div className="trashed-note-list-container note-list-container">
+        <div className="note-list-header">
+          <div className="note-list-link">
+            <ul>
+              <li>
+                <Link to="index">
+                  <span className="octicon octicon-repo"></span>
+                </Link>
+              </li>
+              <li>
+                <Link to="trashed-notes">
+                  <span className="octicon octicon-trashcan"></span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
         <div className="note-list">
-          {this.props.notes.map(note => {
-            if (note.trashed === true) {
-              return <TrashedNoteItem note={note} key={note.id} />
-            }
-          })}
+          <div className="note-list-inner">{trashedNoteItems}</div>
         </div>
       </div>
     );
