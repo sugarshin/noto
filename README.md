@@ -1,3 +1,3 @@
 # noto
 
-WIP
+http://sugarshin.github.io/noto/
