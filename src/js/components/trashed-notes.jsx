@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import Helmet from 'react-helmet';
+import DocumentTitle from 'react-document-title';
 import assign from 'object-assign';
 
 import TrashedNoteItemList from './trashed-note-item-list';
@@ -29,11 +29,12 @@ export default class TrashedNotes extends Component {
     const { notes } = this.props;
 
     return (
-      <div className="notes-container">
-        <Helmet title={`Trash box | ${baseTitle}`} />
-        <TrashedNoteItemList notes={notes} />
-        <footer><Link to="notes-index">ノート</Link></footer>
-      </div>
+      <DocumentTitle title={`Trash box | ${baseTitle}`}>
+        <div className="notes-container">
+          <TrashedNoteItemList notes={notes} />
+          <footer><Link to="notes-index">ノート</Link></footer>
+        </div>
+      </DocumentTitle>
     );
   }
 

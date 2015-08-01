@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import Helmet from 'react-helmet';
+import DocumentTitle from 'react-document-title';
 import Select from 'react-select';
 import assign from 'object-assign';
 
@@ -40,16 +40,17 @@ export default class NotesIndex extends Component {
     const options = this._getSelectOptions(notes);
 
     return (
-      <div className="notes-container">
-        <Helmet title={`Notes | ${baseTitle}`} />
-        <Setting setting={setting} />
-        <Select options={options}
-                value={refineTag.join(',')}
-                multi={true}
-                onChange={this._handleChangeRefineTags.bind(this)}></Select>
-        <NoteItemList notes={notes} refineTag={refineTag} />
-        <footer><Link to="trashed-notes">ゴミ箱</Link></footer>
-      </div>
+      <DocumentTitle title={`Notes | ${baseTitle}`}>
+        <div className="notes-container">
+          <Setting setting={setting} />
+          <Select options={options}
+                  value={refineTag.join(',')}
+                  multi={true}
+                  onChange={this._handleChangeRefineTags.bind(this)}></Select>
+          <NoteItemList notes={notes} refineTag={refineTag} />
+          <footer><Link to="trashed-notes">ゴミ箱</Link></footer>
+        </div>
+      </DocumentTitle>
     );
   }
 
@@ -60,7 +61,7 @@ export default class NotesIndex extends Component {
       }
     }).reduce((a, b) => {
       return a.concat(b);
-    }, []).filter((el, i, array) => {
+    }).filter((el, i, array) => {
       return array.indexOf(el) === i;
     }).map(tag => {
       return {value: tag, label: tag};
