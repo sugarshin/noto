@@ -38,8 +38,10 @@ export default class NoteItemList extends Component {
 
     return (
       <div className="note-list-container" style={{float: 'left', width: '50%'}}>
-        <button onClick={this._handleClickAddButton.bind(this)}>
-          <span className="octicon octicon-plus"></span>
+        <button className="button-base"
+                onClick={this._handleClickAddButton.bind(this)}>
+          <span className="octicon octicon-file-text"></span>
+          <span>Create</span>
         </button>
         <div className="note-list">{noteItems}</div>
       </div>

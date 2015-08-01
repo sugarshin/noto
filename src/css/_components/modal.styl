@@ -4,8 +4,6 @@
   height 100%
 
 .ReactModal__Overlay
-  background-color rgba(255, 255, 255, .75)
-
   &.ReactModal__Overlay--after-open
     position fixed
     left 0
@@ -20,13 +18,29 @@
   left 64px
   right 64px
   bottom 64px
-  border 1px solid $baseColorLevel3
-  background $baseColorLevel1
+  background alpha($baseColorLevel5, .9)
   overflow auto
   overflow-scrolling touch
   outline none
   padding 4%
   // &.ReactModal__Content--after-open
+
+  .close-modal-button
+    appearance none
+    margin 0
+    outline none
+    font-size 1.2em
+    line-height 1
+    padding 16px
+    color $baseColorLevel2
+    background none
+    border 0
+    position absolute
+    right 0
+    top 0
+    z-index 1
+    &:hover
+      opacity .8
 
 @media only screen and (max-width: 767px)
   .ReactModal__Content

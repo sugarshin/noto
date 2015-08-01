@@ -38,28 +38,46 @@ export default class Setting extends Component {
 
     return (
       <div className="setting-container">
-        <button onClick={this._openModal.bind(this)}>
+        <button className="setting-open-button"
+                onClick={this._openModal.bind(this)}>
           <span className="octicon octicon-gear"></span>
         </button>
         <Modal isOpen={this.state.modalIsOpen}
                onRequestClose={this._closeModal.bind(this)}>
-          <Select clearable={false}
-                  value={`${size}px`}
-                  searchable={false}
-                  options={options}
-                  className="setting-size-selector"
-                  onChange={this._handleChangeFontSize.bind(this)}></Select>
+          <div className="setting-body">
+            <button className="close-modal-button"
+                    onClick={this._closeModal.bind(this)}>
+              <span className="octicon octicon-x"></span>
+            </button>
 
-          <ColorPicker value={color}
-                       onDrag={this._handleDragColor.bind(this)}
-                       saturationWidth={128}
-                       saturationHeight={128}
-                       hueWidth={24} />
-          <ColorPicker value={backgroundColor}
-                       onDrag={this._handleDragBackgroundColor.bind(this)}
-                       saturationWidth={128}
-                       saturationHeight={128}
-                       hueWidth={24} />
+            <div className="setting-item setting-fontsize-container">
+              <span className="setting-item-title">Font size</span>
+              <Select clearable={false}
+                      value={`${size}px`}
+                      searchable={false}
+                      options={options}
+                      className="setting-size-selector"
+                      onChange={this._handleChangeFontSize.bind(this)}></Select>
+            </div>
+
+            <div className="setting-item setting-color-container">
+              <span className="setting-item-title">Font color</span>
+              <ColorPicker value={color}
+                           onDrag={this._handleDragColor.bind(this)}
+                           saturationWidth={128}
+                           saturationHeight={128}
+                           hueWidth={24} />
+            </div>
+
+            <div className="setting-item setting-backgroundcolor-container">
+              <span className="setting-item-title">Background color</span>
+              <ColorPicker value={backgroundColor}
+                           onDrag={this._handleDragBackgroundColor.bind(this)}
+                           saturationWidth={128}
+                           saturationHeight={128}
+                           hueWidth={24} />
+            </div>
+          </div>
         </Modal>
       </div>
     );

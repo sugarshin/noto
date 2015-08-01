@@ -29,8 +29,16 @@ export default class TrashedNoteItem extends Component {
         <div>{title}</div>
         <div>{`${body.slice(0, 16)}...`}</div>
         <div>{createdAt}</div>
-        <button onClick={this._handleClickRestoreButton.bind(this)}>Restore</button>
-        <button onClick={this._handleClickDestroyButton.bind(this)}>Destroy</button>
+        <button className="button-base"
+                onClick={this._handleClickRestoreButton.bind(this)}>
+          <span className="octicon octicon-mail-reply"></span>
+          <span>Restore</span>
+        </button>
+        <button className="button-base"
+                onClick={this._handleClickDestroyButton.bind(this)}>
+          <span className="octicon octicon-zap"></span>
+          <span>Destroy</span>
+        </button>
       </div>
     );
   }

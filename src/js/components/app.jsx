@@ -45,7 +45,7 @@ export default class App extends Component {
     const { notes, setting, refineTag } = this.state;
     return (
       <div className="app">
-        <header><a href="./">noto</a></header>
+        <header className="header"><a href="./">noto</a></header>
         <RouteHandler notes={notes} setting={setting} refineTag={refineTag} />
         <footer>
           <p><small>© noto | github.com/sugarshin</small></p>

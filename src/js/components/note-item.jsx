@@ -32,8 +32,10 @@ export default class NoteItem extends Component {
           <div>{`${body.slice(0, 16)}...`}</div>
           <div>{createdAt}</div>
         </Link>
-        <button onClick={this._handleClickTrashButton.bind(this)}>
+        <button className="button-base"
+                onClick={this._handleClickTrashButton.bind(this)}>
           <span className="octicon octicon-trashcan"></span>
+          <span>Trash</span>
         </button>
       </div>
     );
