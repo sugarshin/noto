@@ -61,7 +61,7 @@ export default class NotesIndex extends Component {
       }
     }).reduce((a, b) => {
       return a.concat(b);
-    }).filter((el, i, array) => {
+    }, []).filter((el, i, array) => {
       return array.indexOf(el) === i;
     }).map(tag => {
       return {value: tag, label: tag};
