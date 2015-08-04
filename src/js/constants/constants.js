@@ -24,10 +24,13 @@ export default {
   ActionTypes: keyMirror({
     CREATE_NOTE: null,
     TRASH_NOTE: null,
+    TRASH_CHECKED_NOTE: null,
     RESTORE_NOTE: null,
     RESTORE_NOTE_ALL: null,
     DESTROY_NOTE: null,
     DESTROY_NOTE_ALL: null,
+    TOGGLE_CHECK_NOTE: null,
+    TOGGLE_CHECK_NOTE_ALL: null,
 
     UPDATE_TITLE: null,
     UPDATE_TAG: null,

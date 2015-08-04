@@ -74,7 +74,9 @@ export default class TrashedNoteItemList extends Component {
   }
 
   _handleClickDestroyAllButton() {
-    noteListActions.destroyNoteAll();
+    if (confirm('Are you sure ?')) {
+      noteListActions.destroyNoteAll();
+    }
   }
 
 }

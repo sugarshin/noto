@@ -46,6 +46,15 @@ export default class NoteStore extends EventEmitter {
     });
   }
 
+  _trashCheckedNote(ids) {
+    this._notes = this._notes.map(note => {
+      if (ids.indexOf(note.id) !== -1) {
+        note.trashed = true;
+      }
+      return note;
+    });
+  }
+
   _restoreNote(id) {
     this._notes = this._notes.map(note => {
       if (note.id === id) {
@@ -68,6 +77,22 @@ export default class NoteStore extends EventEmitter {
 
   _destroyNoteAll() {
     this._notes = this._notes.filter(note => note.trashed === false);
+  }
+
+  _toggleCheckNote(id) {
+    this._notes = this._notes.map(note => {
+      if (note.id === id) {
+        note.checked = !note.checked;
+      }
+      return note;
+    });
+  }
+
+  _toggleCheckNoteAll() {
+    this._notes = this._notes.map(note => {
+      note.checked = !note.checked;
+      return note;
+    });
   }
 
   _updateTag(id, tags) {
@@ -115,6 +140,11 @@ export default class NoteStore extends EventEmitter {
         this._emitChange();
         break;
 
+      case ActionTypes.TRASH_CHECKED_NOTE:
+        this._trashCheckedNote(action.ids);
+        this._emitChange();
+        break;
+
       case ActionTypes.RESTORE_NOTE:
         this._restoreNote(action.id);
         this._emitChange();
@@ -132,6 +162,16 @@ export default class NoteStore extends EventEmitter {
 
       case ActionTypes.DESTROY_NOTE_ALL:
         this._destroyNoteAll()
+        this._emitChange();
+        break;
+
+      case ActionTypes.TOGGLE_CHECK_NOTE:
+        this._toggleCheckNote(action.id)
+        this._emitChange();
+        break;
+
+      case ActionTypes.TOGGLE_CHECK_NOTE_ALL:
+        this._toggleCheckNoteAll()
         this._emitChange();
         break;
 

@@ -44,6 +44,18 @@ export default class NoteListActions {
     api.put(API_PATH, { id, updates: {trashed: true} });
   }
 
+  trashCheckedNote(ids) {
+    dispatcher.dispatch({
+      actionType: ActionTypes.TRASH_CHECKED_NOTE,
+      ids
+    });
+
+    // TODO
+    ids.forEach(id => {
+      api.put(API_PATH, { id, updates: {trashed: true} });
+    });
+  }
+
   restoreNote(id) {
     dispatcher.dispatch({
       actionType: ActionTypes.RESTORE_NOTE,
@@ -82,6 +94,19 @@ export default class NoteListActions {
     dispatcher.dispatch({
       actionType: ActionTypes.UPDATE_REFINE_TAG,
       tags
+    });
+  }
+
+  toggleCheckNote(id) {
+    dispatcher.dispatch({
+      actionType: ActionTypes.TOGGLE_CHECK_NOTE,
+      id
+    });
+  }
+
+  toggleCheckNoteAll() {
+    dispatcher.dispatch({
+      actionType: ActionTypes.TOGGLE_CHECK_NOTE_ALL
     });
   }
 

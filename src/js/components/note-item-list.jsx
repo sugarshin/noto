@@ -70,6 +70,20 @@ export default class NoteItemList extends Component {
               <span>Create</span>
             </button>
           </div>
+
+          <div className="note-list-controller">
+            <button className="button-base"
+                    onClick={this._handleClickToggleCheckAll}>
+              <span className="octicon octicon-check"></span>
+              <span>Check</span>
+            </button>
+
+            <button className="button-base"
+                    onClick={this._handleClickTrashCheckedButton.bind(this)}>
+              <span className="octicon octicon-trashcan"></span>
+              <span>Trash</span>
+            </button>
+          </div>
         </div>
 
         <div className="note-list">
@@ -101,6 +115,18 @@ export default class NoteItemList extends Component {
     noteListActions.createNote(assign({}, DEFAULT_NOTE, {
       createdAt: strftime('%Y-%m-%d %H:%M')
     }));
+  }
+
+  _handleClickToggleCheckAll() {
+    noteListActions.toggleCheckNoteAll();
+  }
+
+  _handleClickTrashCheckedButton() {
+    const { notes } = this.props;
+    const checkedNodeIDs = notes.filter(note => note.checked === true)
+      .map(note => note.id);
+
+    noteListActions.trashCheckedNote(checkedNodeIDs);
   }
 
   _includesRefineTag(note, refineTag) {

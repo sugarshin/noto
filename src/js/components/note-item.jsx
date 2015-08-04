@@ -13,6 +13,7 @@ export default class NoteItem extends Component {
         body: PropTypes.string,
         createdAt: PropTypes.string,
         trashed: PropTypes.bool,
+        checked: PropTypes.bool,
         tags: PropTypes.arrayOf(PropTypes.string)
       })
     };
@@ -23,7 +24,7 @@ export default class NoteItem extends Component {
   }
 
   render() {
-    const { id, title, body, createdAt } = this.props.note;
+    const { id, title, body, createdAt, checked } = this.props.note;
 
     return (
       <div className="note-item-container">
@@ -33,6 +34,20 @@ export default class NoteItem extends Component {
           <div className="note-item-created-at">{createdAt}</div>
         </Link>
         <div className="note-item-button">
+          <div className="note-item-button-checkbox"
+            // todo
+            style={{
+              float: 'left',
+              width: '32px',
+              textAlign: 'left',
+              margin: '8px 0 0 8px'
+            }}>
+            <input type="checkbox"
+                   checked={!!checked}
+                   ref="checkbox"
+                   onChange={this._handleChangeCheckbox.bind(this)}/>
+          </div>
+
           <button className="button-base"
                   onClick={this._handleClickTrashButton.bind(this)}>
             <span className="octicon octicon-trashcan"></span>
@@ -41,6 +56,10 @@ export default class NoteItem extends Component {
         </div>
       </div>
     );
+  }
+
+  _handleChangeCheckbox() {
+    noteListActions.toggleCheckNote(this.props.note.id);
   }
 
   _handleClickTrashButton() {
