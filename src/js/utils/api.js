@@ -42,7 +42,8 @@ export default {
 
   /**
    * @path 'notes', 'settings'
-   * { id } notes id String
+   * { id } note id. String or (null or undefined)
+   *   All will be update if it was null or undefined
    * { updates } updates Object
    */
   put(path, { id, updates }) {
@@ -52,7 +53,7 @@ export default {
 
         if (path === 'notes') {
           data[path] = data[path].map(note => {
-            if (note.id === id) {
+            if (id == null /* undefined or null */ || note.id === id) {
               return assign({}, note, updates);
             }
             return note;
@@ -69,6 +70,11 @@ export default {
     });
   },
 
+  /**
+   * @path 'notes'
+   * { id } notes id String or null or undefined
+   *   All will be delete if it was null or undefined
+   */
   delete(path, id) {
     return new Promise((resolve, reject) => {
       try {
@@ -77,7 +83,11 @@ export default {
         }
 
         let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
-        data.notes = data.notes.filter(note => note.id !== id);
+        if (id == null) {
+          data.notes = data.notes.filter(note => note.trashed === false);
+        } else {
+          data.notes = data.notes.filter(note => note.id !== id);
+        }
         localStorage.setItem(NAMESPACE, JSON.stringify(data));
         resolve();
       } catch (err) {

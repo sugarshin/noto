@@ -55,12 +55,19 @@ export default class NoteStore extends EventEmitter {
     });
   }
 
-  _destroyNote(id) {
-    this._notes = this._notes.filter(note => {
-      if (note.id !== id) {
-        return note;
-      }
+  _restoreNoteAll() {
+    this._notes = this._notes.map(note => {
+      note.trashed = false;
+      return note;
     });
+  }
+
+  _destroyNote(id) {
+    this._notes = this._notes.filter(note => note.id !== id);
+  }
+
+  _destroyNoteAll() {
+    this._notes = this._notes.filter(note => note.trashed === false);
   }
 
   _updateTag(id, tags) {
@@ -113,8 +120,18 @@ export default class NoteStore extends EventEmitter {
         this._emitChange();
         break;
 
+      case ActionTypes.RESTORE_NOTE_ALL:
+        this._restoreNoteAll();
+        this._emitChange();
+        break;
+
       case ActionTypes.DESTROY_NOTE:
         this._destroyNote(action.id)
+        this._emitChange();
+        break;
+
+      case ActionTypes.DESTROY_NOTE_ALL:
+        this._destroyNoteAll()
         this._emitChange();
         break;
 

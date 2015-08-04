@@ -53,6 +53,14 @@ export default class NoteListActions {
     api.put(API_PATH, { id, updates: {trashed: false} });
   }
 
+  restoreNoteAll() {
+    dispatcher.dispatch({
+      actionType: ActionTypes.RESTORE_NOTE_ALL
+    });
+
+    api.put(API_PATH, { updates: {trashed: false} });
+  }
+
   destroyNote(id) {
     dispatcher.dispatch({
       actionType: ActionTypes.DESTROY_NOTE,
@@ -60,6 +68,14 @@ export default class NoteListActions {
     });
 
     api.delete(API_PATH, id);
+  }
+
+  destroyNoteAll() {
+    dispatcher.dispatch({
+      actionType: ActionTypes.DESTROY_NOTE_ALL
+    });
+
+    api.delete(API_PATH);
   }
 
   updateRefineTag(tags) {
