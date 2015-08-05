@@ -1,11 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import DocumentTitle from 'react-document-title';
-import assign from 'object-assign';
 
-import Setting from './setting';
 import NoteItemList from './note-item-list';
-import { noteListActions } from '../context';
 import { baseTitle } from '../config/settings';
 
 export default class NotesIndex extends Component {
@@ -20,11 +16,6 @@ export default class NotesIndex extends Component {
         trashed: PropTypes.bool,
         tags: PropTypes.arrayOf(PropTypes.string)
       })),
-      setting: PropTypes.shape({
-        color: PropTypes.string,
-        size: PropTypes.number,
-        backgroundColor: PropTypes.string
-      }),
       refineTag: PropTypes.arrayOf(PropTypes.string)
     };
   }
@@ -34,12 +25,11 @@ export default class NotesIndex extends Component {
   }
 
   render() {
-    const { notes, setting, refineTag } = this.props;
+    const { notes, refineTag } = this.props;
 
     return (
       <DocumentTitle title={`Notes | ${baseTitle}`}>
         <div className="notes-container">
-          <Setting setting={setting} />
           <NoteItemList notes={notes} refineTag={refineTag} />
         </div>
       </DocumentTitle>

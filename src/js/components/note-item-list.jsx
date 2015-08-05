@@ -42,15 +42,6 @@ export default class NoteItemList extends Component {
     return (
       <div className="note-list-container">
         <div className="note-list-header">
-          <NoteListLink />
-
-          <Select className="note-list-select"
-                  options={options}
-                  value={refineTag.join(',')}
-                  multi={true}
-                  noResultsText="No result"
-                  onChange={this._handleChangeRefineTags.bind(this)}></Select>
-
           <div className="note-list-controller">
             <button className="button-base"
                     onClick={this._handleClickAddButton.bind(this)}>
@@ -72,11 +63,21 @@ export default class NoteItemList extends Component {
               <span>Trash</span>
             </button>
           </div>
+
+          <Select className="note-list-select"
+                  options={options}
+                  value={refineTag.join(',')}
+                  multi={true}
+                  noResultsText="No result"
+                  onChange={this._handleChangeRefineTags.bind(this)}></Select>
+
         </div>
 
         <div className="note-list">
           <div className="note-list-inner">{noteItems}</div>
         </div>
+
+        <NoteListLink />
       </div>
     );
   }

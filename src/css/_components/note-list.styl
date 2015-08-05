@@ -2,18 +2,24 @@
   position absolute
   top 0
   left 0
-  width 256px - 20px
+  width 256px - 8px
   height 100%
-  padding-top 20px
+  padding 20px 0 0
   box-sizing border-box
   z-index 1
+  border-right 1px solid $baseColorLevel3
 
 .note-list-header
   position relative
   z-index 2
 
 .note-list-link
-  margin 8px 0
+  margin 8px 0 0
+  position absolute
+  width 100%
+  bottom 0
+  left 0
+  z-index 2
   ul
     margin 0
     padding 0
@@ -21,6 +27,7 @@
     overflow hidden
     border-top 1px solid $baseColorLevel3
     border-bottom 1px solid $baseColorLevel3
+    background-color $baseColorLevel2
   li
     float left
     width 50%
@@ -38,7 +45,7 @@
   margin 8px 0
 
 .note-list-controller
-  margin 0 0 8px 8px
+  margin 8px 0 8px 8px
   padding-bottom 8px
   border-bottom 1px solid $baseColorLevel3
   &:last-child
@@ -49,7 +56,7 @@
 .note-list
   height 100%
   box-sizing border-box
-  padding-top 216px
+  padding 170px 0 50px
   position absolute
   width 100%
   top 0
@@ -94,4 +101,4 @@
 
 .trashed-note-list-container
   .note-list
-    padding-top: 116px;
+    padding-top 72px

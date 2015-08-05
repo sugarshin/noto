@@ -34,7 +34,6 @@ export default class TrashedNoteItemList extends Component {
     return (
       <div className="trashed-note-list-container note-list-container">
         <div className="note-list-header">
-          <NoteListLink />
           <div className="note-list-controller">
             <button className="button-base"
                     onClick={this._handleClickRestoreAllButton}>
@@ -51,6 +50,7 @@ export default class TrashedNoteItemList extends Component {
         <div className="note-list">
           <div className="note-list-inner">{trashedNoteItems}</div>
         </div>
+        <NoteListLink />
       </div>
     );
   }

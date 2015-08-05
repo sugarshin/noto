@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import DocumentTitle from 'react-document-title';
-import assign from 'object-assign';
 
 import TrashedNoteItemList from './trashed-note-item-list';
 import { baseTitle } from '../config/settings';
