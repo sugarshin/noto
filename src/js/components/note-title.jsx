@@ -1,5 +1,6 @@
 import React, { Component, PropTypes, findDOMNode } from 'react';
 import classnames from 'classnames';
+import throttle from 'lodash.throttle';
 
 import { noteActions } from '../context';
 
@@ -20,6 +21,8 @@ export default class NoteTitle extends Component {
     this.state = {
       isEditingTitle: false
     };
+
+    this._throttledUpdateTitle = throttle(noteActions.updateTitle, 400).bind(noteActions);
   }
 
   render() {
@@ -44,7 +47,7 @@ export default class NoteTitle extends Component {
   }
 
   _handleChangeTitle(ev) {
-    noteActions.updateTitle(this.props.note.id, ev.currentTarget.value);
+    this._throttledUpdateTitle(this.props.note.id, ev.currentTarget.value);
   }
 
   _handleClickTitle() {
