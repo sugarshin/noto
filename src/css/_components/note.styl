@@ -4,17 +4,20 @@
   box-sizing border-box
   padding 20px 8px 0 256px
 .note-title-wrapper
-  float left
-  width 50%
-  font-size 1.5em
-  line-height 1.3
   .note-title
+    font-size 1.5em
+    line-height 1.3
     display inline-block
     cursor pointer
+    & > span
+      vertical-align middle
     .octicon
       margin 0 .5em
   .note-title-editor
     display none
+    box-sizing border-box
+    width 100%
+    margin-bottom 8px
   &.editing
     .note-title
       display none
@@ -22,8 +25,6 @@
       display block
 
 .note-created-at
-  float left
-  width 50%
   text-align right
   margin-bottom 14px
 

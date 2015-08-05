@@ -70,7 +70,9 @@ export default class TrashedNoteItemList extends Component {
   }
 
   _handleClickRestoreAllButton() {
-    noteListActions.restoreNoteAll();
+    if (confirm('Are you sure ?')) {
+      noteListActions.restoreNoteAll();
+    }
   }
 
   _handleClickDestroyAllButton() {

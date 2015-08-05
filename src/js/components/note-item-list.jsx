@@ -61,13 +61,14 @@ export default class NoteItemList extends Component {
                   options={options}
                   value={refineTag.join(',')}
                   multi={true}
+                  noResultsText="No result"
                   onChange={this._handleChangeRefineTags.bind(this)}></Select>
 
           <div className="note-list-controller">
             <button className="button-base"
                     onClick={this._handleClickAddButton.bind(this)}>
               <span className="octicon octicon-file-text"></span>
-              <span>Create</span>
+              <span>New</span>
             </button>
           </div>
 

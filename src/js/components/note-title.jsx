@@ -31,7 +31,7 @@ export default class NoteTitle extends Component {
       <div className={classes}>
         <div className="note-title"
              onClick={this._handleClickTitle.bind(this)}>
-           {this.props.note.title}
+           <span>{this.props.note.title}</span>
            <span className="octicon octicon-pencil"></span>
         </div>
         <input ref="title-editor"
