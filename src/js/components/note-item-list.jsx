@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import Select from 'react-select';
 import assign from 'object-assign';
 import strftime from 'strftime';
 
+import NoteListLink from './note-list-link';
 import NoteItem from './note-item';
 import { noteListActions } from '../context';
 import { DEFAULT_NOTE } from '../constants/constants';
@@ -30,11 +30,11 @@ export default class NoteItemList extends Component {
 
   render() {
     const { notes, refineTag } = this.props;
-    const noteItems = notes.map(note => {
-      if (note.trashed === false &&
-      this._includesRefineTag(note, refineTag)) {
-        return <NoteItem note={note} key={note.id} />;
-      }
+    const noteItems = notes.filter(note => {
+      return (note.trashed === false &&
+              this._includesRefineTag(note, refineTag));
+    }).map(note => {
+      return <NoteItem note={note} key={note.id} />;
     });
 
     const options = this._getSelectOptions(notes);
@@ -42,20 +42,7 @@ export default class NoteItemList extends Component {
     return (
       <div className="note-list-container">
         <div className="note-list-header">
-          <div className="note-list-link">
-            <ul>
-              <li>
-                <Link to="index">
-                  <span className="octicon octicon-repo"></span>
-                </Link>
-              </li>
-              <li>
-                <Link to="trashed-notes">
-                  <span className="octicon octicon-trashcan"></span>
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <NoteListLink />
 
           <Select className="note-list-select"
                   options={options}
@@ -94,18 +81,26 @@ export default class NoteItemList extends Component {
     );
   }
 
+  /**
+   * ノートリストの絞込表示用
+   * react-selet options
+   * @params {array} notes
+   * @return {array} [{value: tag, label: tag},]
+   */
   _getSelectOptions(notes) {
-    return notes.map(note => {
-      if (note.trashed === false) {
-        return note.tags;
-      }
-    }).reduce((a, b) => {
-      return a.concat(b);
-    }, []).filter((el, i, array) => {
-      return array.indexOf(el) === i;
-    }).map(tag => {
-      return {value: tag, label: tag};
-    });
+    return notes.filter(note => note.trashed === false)
+      .map(note => note.tags)
+      // flatten
+      .reduce((a, b) => {
+        return a.concat(b);
+      }, [])
+      // 重複削除
+      .filter((el, i, array) => {
+        return array.indexOf(el) === i;
+      })
+      .map(tag => {
+        return {value: tag, label: tag};
+      });
   }
 
   _handleChangeRefineTags(value) {
