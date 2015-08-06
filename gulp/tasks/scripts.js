@@ -10,7 +10,7 @@ const bundler = isWatch => {
   let b;
 
   if (isWatch) {
-    // bOpts.debug = true;
+    bOpts.debug = true;
     bOpts.cache = {};
     bOpts.packageCache = {};
     bOpts.fullPath = true;
