@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { RouteHandler } from 'react-router';
 
+import Header from './header';
+
 import {
   noteListActions,
   settingActions,
@@ -45,11 +47,8 @@ export default class App extends Component {
     const { notes, setting, refineTag } = this.state;
     return (
       <div className="app">
-        <header className="header"><a href="./">noto</a></header>
+        <Header setting={setting} />
         <RouteHandler notes={notes} setting={setting} refineTag={refineTag} />
-        <footer className="footer">
-          <p><small>© noto | github.com/sugarshin</small></p>
-        </footer>
       </div>
     );
   }

@@ -30,7 +30,7 @@ export default class NoteItem extends Component {
       <div className="note-item-container">
         <Link to="notes" params={{ id }}>
           <div className="note-item-title">{title}</div>
-          <div className="note-item-body">{`${body.slice(0, 13)}...`}</div>
+          <div className="note-item-body">{body}</div>
           <div className="note-item-created-at">{createdAt}</div>
         </Link>
         <div className="note-item-button">
@@ -43,7 +43,7 @@ export default class NoteItem extends Component {
               margin: '8px 0 0 8px'
             }}>
             <input type="checkbox"
-                   checked={!!checked}
+                   checked={checked}
                    ref="checkbox"
                    onChange={this._handleChangeCheckbox.bind(this)}/>
           </div>

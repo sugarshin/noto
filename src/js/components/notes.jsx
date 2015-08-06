@@ -1,10 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import DocumentTitle from 'react-document-title';
-import Select from 'react-select';
-import assign from 'object-assign';
 
-import Setting from './setting';
 import NoteItemList from './note-item-list';
 import Note from './note';
 import { DEFAULT_NOTE } from '../constants/constants';
@@ -42,7 +38,6 @@ export default class Notes extends Component {
     return (
       <DocumentTitle title={`${note.title} | Notes | ${baseTitle}`}>
         <div className="notes-container">
-          <Setting setting={setting} />
           <NoteItemList notes={notes} refineTag={refineTag} />
           <Note note={note} setting={setting} />
         </div>

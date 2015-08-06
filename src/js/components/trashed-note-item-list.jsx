@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 
+import NoteListLink from './note-list-link';
 import TrashedNoteItem from './trashed-note-item';
 
 import { noteListActions } from '../context';
@@ -26,29 +26,14 @@ export default class TrashedNoteItemList extends Component {
 
   render() {
     const { notes } = this.props;
-    const trashedNoteItems = notes.map(note => {
-      if (note.trashed === true) {
-        return <TrashedNoteItem note={note} key={note.id} />;
-      }
-    });
+    const trashedNoteItems = notes.filter(note => note.trashed === true)
+      .map(note => {
+          return <TrashedNoteItem note={note} key={note.id} />;
+      });
 
     return (
       <div className="trashed-note-list-container note-list-container">
         <div className="note-list-header">
-          <div className="note-list-link">
-            <ul>
-              <li>
-                <Link to="index">
-                  <span className="octicon octicon-repo"></span>
-                </Link>
-              </li>
-              <li>
-                <Link to="trashed-notes">
-                  <span className="octicon octicon-trashcan"></span>
-                </Link>
-              </li>
-            </ul>
-          </div>
           <div className="note-list-controller">
             <button className="button-base"
                     onClick={this._handleClickRestoreAllButton}>
@@ -65,12 +50,15 @@ export default class TrashedNoteItemList extends Component {
         <div className="note-list">
           <div className="note-list-inner">{trashedNoteItems}</div>
         </div>
+        <NoteListLink />
       </div>
     );
   }
 
   _handleClickRestoreAllButton() {
-    noteListActions.restoreNoteAll();
+    if (confirm('Are you sure ?')) {
+      noteListActions.restoreNoteAll();
+    }
   }
 
   _handleClickDestroyAllButton() {

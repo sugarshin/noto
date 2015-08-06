@@ -8,6 +8,7 @@ export default {
     body: '',
     createdAt: '',
     trashed: false,
+    checked: false,
     tags: []
   },
   INITIAL_STORE: {
