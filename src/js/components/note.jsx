@@ -1,8 +1,8 @@
-import React, { Component, PropTypes, findDOMNode } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
-import throttle from 'lodash.throttle';
 
 import NoteTitle from './note-title';
+import NoteTextarea from './note-textarea';
 import CopyButton from './copy-button';
 import { noteActions } from '../context';
 
@@ -17,21 +17,17 @@ export default class Note extends Component {
         createdAt: PropTypes.string,
         trashed: PropTypes.bool,
         tags: PropTypes.arrayOf(PropTypes.string)
+      }),
+      setting: PropTypes.shape({
+        color: PropTypes.string,
+        size: PropTypes.number,
+        backgroundColor: PropTypes.string
       })
     };
   }
 
   constructor(props) {
     super(props);
-
-    this._throttledInputText = throttle(noteActions.inputText, 400).bind(noteActions);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { id, body } = this.props.note;
-    if (prevProps.note.id !== id) {
-      findDOMNode(this.refs.textarea).value = body;
-    }
   }
 
   render() {
@@ -48,15 +44,7 @@ export default class Note extends Component {
                 placeholder="Add tag..."
                 noResultsText=""
                 onChange={this._handleChangeTag.bind(this)} />
-        <textarea ref="textarea"
-                  className="note-textarea"
-                  defaultValue={note.body}
-                  onChange={this._handleChangeText.bind(this)}
-                  style={{
-                    color: setting.color,
-                    backgroundColor: setting.backgroundColor,
-                    fontSize: setting.size
-                  }}></textarea>
+        <NoteTextarea note={note} setting={setting} />
         <CopyButton note={{body: note.body}} />
       </div>
     );
@@ -64,10 +52,6 @@ export default class Note extends Component {
 
   _handleChangeTag(value) {
     noteActions.updateTag(this.props.note.id, value.split(','));
-  }
-
-  _handleChangeText(ev) {
-    this._throttledInputText(this.props.note.id, ev.currentTarget.value);
   }
 
 }
