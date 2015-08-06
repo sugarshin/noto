@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Select from 'react-select';
+import TagsInput from 'react-tagsinput';
 
 import NoteTitle from './note-title';
 import NoteTextarea from './note-textarea';
@@ -37,21 +37,19 @@ export default class Note extends Component {
       <div className="note-container">
         <NoteTitle note={{id: note.id, title: note.title}} />
         <div className="note-created-at">{note.createdAt}</div>
-        <Select className="note-tags"
-                value={note.tags.join(',')}
-                multi={true}
-                allowCreate={true}
-                placeholder="Add tag..."
-                noResultsText=""
-                onChange={this._handleChangeTag.bind(this)} />
+        <TagsInput value={note.tags}
+                   ref="tags"
+                   placeholder="Add a tag..."
+                   classNames={{div: 'react-tagsinput note-tags'}}
+                   onChange={this._handleChangeTags.bind(this)} />
         <NoteTextarea note={note} setting={setting} />
         <CopyButton note={{body: note.body}} />
       </div>
     );
   }
 
-  _handleChangeTag(value) {
-    noteActions.updateTag(this.props.note.id, value.split(','));
+  _handleChangeTags(tags) {
+    noteActions.updateTag(this.props.note.id, tags);
   }
 
 }

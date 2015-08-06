@@ -68,9 +68,9 @@ export default class NoteItemList extends Component {
                   options={options}
                   value={refineTag.join(',')}
                   multi={true}
+                  placeholder="Filter tag..."
                   noResultsText="No result"
                   onChange={this._handleChangeRefineTags.bind(this)}></Select>
-
         </div>
 
         <div className="note-list">
@@ -84,7 +84,7 @@ export default class NoteItemList extends Component {
 
   /**
    * ノートリストの絞込表示用
-   * react-selet options
+   * Select options
    * @params {array} notes
    * @return {array} [{value: tag, label: tag},]
    */
@@ -96,9 +96,7 @@ export default class NoteItemList extends Component {
         return a.concat(b);
       }, [])
       // 重複削除
-      .filter((el, i, array) => {
-        return array.indexOf(el) === i;
-      })
+      .filter((tag, i, tags) => tags.indexOf(tag) === i)
       .map(tag => {
         return {value: tag, label: tag};
       });

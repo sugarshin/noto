@@ -1,0 +1,42 @@
+.react-tagsinput
+  background-color $baseColorLevel1
+  border 1px solid $baseColorLevel3
+  overflow hidden
+  padding-left 5px
+  padding-top 5px
+
+.react-tagsinput-tag
+  background-color lighten($primaryColor, 90%)
+  border-radius 2px
+  border 1px solid lighten($primaryColor, 80%)
+  color $primaryColor
+  float left
+  font-size 1em
+  margin-bottom 5px
+  margin-right 5px
+  padding 5px
+
+.react-tagsinput-remove
+  cursor pointer
+  font-weight bold
+  &:before
+    content "x"
+    margin-left .5em
+    font-size 1.1em
+
+.react-tagsinput-input
+  background transparent
+  border 0
+  font-size 1em
+  margin-bottom 6px
+  margin-top 1px
+  outline none
+  padding 5px
+  width 80px
+
+.react-tagsinput-invalid
+  background-color #fbd8db
+  color #90111a
+
+.react-tagsinput-validating
+  background #fffacd
