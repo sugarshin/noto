@@ -53,7 +53,7 @@ export default {
 
         if (path === 'notes') {
           data[path] = data[path].map(note => {
-            if (id == null /* undefined or null */ || note.id === id) {
+            if (id == null /* null or undefined */ || note.id === id) {
               return assign({}, note, updates);
             }
             return note;
@@ -62,8 +62,9 @@ export default {
           data[path] = assign({}, data[path], updates);
         }
 
-        localStorage.setItem(NAMESPACE, JSON.stringify(data));
-        resolve();
+        resolve(
+          localStorage.setItem(NAMESPACE, JSON.stringify(data))
+        );
       } catch (err) {
         reject(err);
       }
