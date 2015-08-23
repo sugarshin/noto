@@ -4,7 +4,7 @@
   "scripts": {
     "start": "gulp",
     "test": "mocha -r mock-local-storage --compilers js:espower-babel/guess src/js/__test__/**/*.js",
-    "b": "NODE_ENV=production gulp build",
+    "build": "NODE_ENV=production gulp build",
     "deploy": "gh-pages-deploy-cmd 'public/**/*'"
   },
   "repository": {
