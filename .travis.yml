@@ -3,7 +3,7 @@ node_js:
   - "0.12"
 before_script:
   - npm run build
-script:
+deploy:
   - npm run deploy
 env:
   global:
