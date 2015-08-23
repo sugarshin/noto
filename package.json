@@ -47,7 +47,7 @@
     "browserify": "^11.0.1",
     "del": "^1.2.1",
     "espower-babel": "^3.2.0",
-    "gh-pages-deploy-sh": "^1.1.0",
+    "gh-pages-deploy-sh": "sugarshin/gh-pages-deploy-sh#patch-1",
     "gulp": "^3.9.0",
     "gulp-jade": "^1.1.0",
     "gulp-load-plugins": "^0.10.0",
