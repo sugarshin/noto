@@ -1,9 +1,9 @@
 language: node_js
 node_js:
   - "0.12"
-before_script:
+after_success:
   - npm run build
-deploy:
+after_script:
   - npm run deploy
 env:
   global:
