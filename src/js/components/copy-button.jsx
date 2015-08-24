@@ -19,6 +19,7 @@ export default class CopyButton extends Component {
       isCopied: false
     };
 
+    this.handleAfterCopy = this.handleAfterCopy.bind(this);
   }
 
   render() {
@@ -32,7 +33,7 @@ export default class CopyButton extends Component {
           <span className="octicon octicon-check"></span>
           <span>Copied!</span>
         </span>
-        <ZeroClipboard text={this.props.note.body} onAfterCopy={this._handleAfterCopy.bind(this)}>
+        <ZeroClipboard text={this.props.note.body} onAfterCopy={this.handleAfterCopy}>
           <button className="button-base">
             <span className="octicon octicon-clippy"></span>
             <span>Copy to clipboard</span>
@@ -42,7 +43,7 @@ export default class CopyButton extends Component {
     );
   }
 
-  _handleAfterCopy() {
+  handleAfterCopy() {
     this.setState({
       isCopied: true
     });
