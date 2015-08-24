@@ -9,11 +9,7 @@ export default class NoteTextarea extends Component {
     return {
       note: PropTypes.shape({
         id: PropTypes.string.isRequired,
-        title: PropTypes.string,
-        body: PropTypes.string,
-        createdAt: PropTypes.string,
-        trashed: PropTypes.bool,
-        tags: PropTypes.arrayOf(PropTypes.string)
+        body: PropTypes.string
       }),
       setting: PropTypes.shape({
         color: PropTypes.string,
@@ -27,6 +23,7 @@ export default class NoteTextarea extends Component {
     super(props);
 
     this._throttledInputText = throttle(noteActions.inputText, 400).bind(noteActions);
+    this.handleChangeText = this.handleChangeText.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -49,13 +46,13 @@ export default class NoteTextarea extends Component {
         <textarea ref="textarea"
                   className="note-textarea"
                   defaultValue={note.body}
-                  onChange={this._handleChangeText.bind(this)}
+                  onChange={this.handleChangeText}
                   style={styles}></textarea>
       </div>
     );
   }
 
-  _handleChangeText(ev) {
+  handleChangeText(ev) {
     this._throttledInputText(this.props.note.id, ev.currentTarget.value);
   }
 
