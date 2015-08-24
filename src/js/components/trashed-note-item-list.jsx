@@ -36,12 +36,12 @@ export default class TrashedNoteItemList extends Component {
         <div className="note-list-header">
           <div className="note-list-controller">
             <button className="button-base"
-                    onClick={this._handleClickRestoreAllButton}>
+                    onClick={this.handleClickRestoreAllButton}>
               <span className="octicon octicon-mail-reply"></span>
               <span>Restore all</span>
             </button>
             <button className="button-base"
-                    onClick={this._handleClickDestroyAllButton}>
+                    onClick={this.handleClickDestroyAllButton}>
               <span className="octicon octicon-zap"></span>
               <span>Destroy all</span>
             </button>
@@ -55,13 +55,13 @@ export default class TrashedNoteItemList extends Component {
     );
   }
 
-  _handleClickRestoreAllButton() {
+  handleClickRestoreAllButton() {
     if (confirm('Are you sure ?')) {
       noteListActions.restoreNoteAll();
     }
   }
 
-  _handleClickDestroyAllButton() {
+  handleClickDestroyAllButton() {
     if (confirm('Are you sure ?')) {
       noteListActions.destroyNoteAll();
     }

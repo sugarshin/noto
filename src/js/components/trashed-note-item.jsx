@@ -10,15 +10,16 @@ export default class TrashedNoteItem extends Component {
         id: PropTypes.string.isRequired,
         title: PropTypes.string,
         body: PropTypes.string,
-        createdAt: PropTypes.string,
-        trashed: PropTypes.bool,
-        tags: PropTypes.arrayOf(PropTypes.string)
+        createdAt: PropTypes.string
       })
     };
   }
 
   constructor(props) {
     super(props);
+
+    this.handleClickRestoreButton = this.handleClickRestoreButton.bind(this);
+    this.handleClickDestroyButton = this.handleClickDestroyButton.bind(this);
   }
 
   render() {
@@ -31,12 +32,12 @@ export default class TrashedNoteItem extends Component {
         <div className="note-item-created-at">{createdAt}</div>
         <div className="note-item-button">
           <button className="button-base"
-                  onClick={this._handleClickRestoreButton.bind(this)}>
+                  onClick={this.handleClickRestoreButton}>
             <span className="octicon octicon-mail-reply"></span>
             <span>Restore</span>
           </button>
           <button className="button-base"
-                  onClick={this._handleClickDestroyButton.bind(this)}>
+                  onClick={this.handleClickDestroyButton}>
             <span className="octicon octicon-zap"></span>
             <span>Destroy</span>
           </button>
@@ -45,11 +46,11 @@ export default class TrashedNoteItem extends Component {
     );
   }
 
-  _handleClickRestoreButton() {
+  handleClickRestoreButton() {
     noteListActions.restoreNote(this.props.note.id);
   }
 
-  _handleClickDestroyButton() {
+  handleClickDestroyButton() {
     if (confirm('Are you sure ?')) {
       noteListActions.destroyNote(this.props.note.id);
     }
