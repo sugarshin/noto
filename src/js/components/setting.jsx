@@ -28,25 +28,28 @@ export default class Setting extends Component {
     this.state = {
       modalIsOpen: false
     };
+
+    this.handleClickOpenModal = this.handleClickOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   render() {
     const { color, size, backgroundColor } = this.props.setting;
-    const options = FONT_SIZE_VARIATION.map(size => {
+    const selectOptions = FONT_SIZE_VARIATION.map(size => {
       return {value: size, label: `${size}px`};
     });
 
     return (
       <div className="setting-container">
         <button className="setting-open-button"
-                onClick={this._openModal.bind(this)}>
+                onClick={this.handleClickOpenModal}>
           <span className="octicon octicon-gear"></span>
         </button>
         <Modal isOpen={this.state.modalIsOpen}
-               onRequestClose={this._closeModal.bind(this)}>
+               onRequestClose={this.handleCloseModal}>
           <div className="setting-body">
             <button className="close-modal-button"
-                    onClick={this._closeModal.bind(this)}>
+                    onClick={this.handleCloseModal}>
               <span className="octicon octicon-x"></span>
             </button>
 
@@ -55,15 +58,15 @@ export default class Setting extends Component {
               <Select clearable={false}
                       value={`${size}px`}
                       searchable={false}
-                      options={options}
+                      options={selectOptions}
                       className="setting-size-selector"
-                      onChange={this._handleChangeFontSize.bind(this)}></Select>
+                      onChange={this.handleChangeFontSize}></Select>
             </div>
 
             <div className="setting-item setting-color-container">
               <span className="setting-item-title">Font color</span>
               <ColorPicker value={color}
-                           onDrag={this._handleDragColor.bind(this)}
+                           onDrag={this.handleDragColor}
                            saturationWidth={128}
                            saturationHeight={128}
                            hueWidth={24} />
@@ -72,7 +75,7 @@ export default class Setting extends Component {
             <div className="setting-item setting-backgroundcolor-container">
               <span className="setting-item-title">Background color</span>
               <ColorPicker value={backgroundColor}
-                           onDrag={this._handleDragBackgroundColor.bind(this)}
+                           onDrag={this.handleDragBackgroundColor}
                            saturationWidth={128}
                            saturationHeight={128}
                            hueWidth={24} />
@@ -83,23 +86,23 @@ export default class Setting extends Component {
     );
   }
 
-  _openModal() {
+  handleClickOpenModal() {
     this.setState({modalIsOpen: true});
   }
 
-  _closeModal() {
+  handleCloseModal() {
     this.setState({modalIsOpen: false});
   }
 
-  _handleChangeFontSize(value) {
+  handleChangeFontSize(value) {
     settingActions.changeTextSize(+value); // value is string
   }
 
-  _handleDragColor(color, c) {
+  handleDragColor(color, c) {
     settingActions.changeTextColor(color);
   }
 
-  _handleDragBackgroundColor(color, c) {
+  handleDragBackgroundColor(color, c) {
     settingActions.changeBackgroundColor(color);
   }
 
