@@ -6,7 +6,7 @@ import strftime from 'strftime';
 import NoteListLink from './note-list-link';
 import NoteItem from './note-item';
 import { noteListActions } from '../context';
-import { DEFAULT_NOTE } from '../constants/constants';
+import { DEFAULT } from '../constants/constants';
 
 export default class NoteItemList extends Component {
 
@@ -87,7 +87,7 @@ export default class NoteItemList extends Component {
   }
 
   handleClickAddButton() {
-    noteListActions.createNote(assign({}, DEFAULT_NOTE, {
+    noteListActions.createNote(assign({}, DEFAULT.note, {
       createdAt: strftime('%Y-%m-%d %H:%M')
     }));
   }

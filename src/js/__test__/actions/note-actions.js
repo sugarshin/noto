@@ -2,7 +2,7 @@ import assert from 'power-assert';
 import crypto from 'crypto';
 
 import dispatcher from '../../dispatcher/dispatcher';
-import { ActionTypes } from '../../constants/constants';
+import ActionTypes from '../../constants/ActionTypes';
 import { noteActions } from '../../context';
 
 describe('NoteActions', () => {

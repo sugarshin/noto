@@ -2,7 +2,7 @@ import EventEmitter from 'eventemitter3';
 import assign from 'object-assign';
 
 import dispatcher from '../dispatcher/dispatcher';
-import { ActionTypes } from '../constants/constants';
+import ActionTypes from '../constants/ActionTypes';
 
 const CHANGE_EVENT = 'change';
 

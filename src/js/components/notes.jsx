@@ -3,7 +3,7 @@ import DocumentTitle from 'react-document-title';
 
 import NoteItemList from './note-item-list';
 import Note from './note';
-import { DEFAULT_NOTE } from '../constants/constants';
+import { DEFAULT } from '../constants/constants';
 import { baseTitle } from '../config/settings';
 
 export default class Notes extends Component {
@@ -25,7 +25,7 @@ export default class Notes extends Component {
 
   render() {
     const { notes, setting, refineTag, params } = this.props;
-    const note = this._findWhereNote(notes, params.id) || DEFAULT_NOTE;
+    const note = this._findWhereNote(notes, params.id) || DEFAULT.note;
 
     return (
       <DocumentTitle title={`${note.title} | Notes | ${baseTitle}`}>

@@ -4,7 +4,7 @@ import co from 'co';
 import dispatcher from '../dispatcher/dispatcher';
 import api from '../utils/api';
 
-import { ActionTypes } from '../constants/constants';
+import ActionTypes from '../constants/ActionTypes';
 
 const API_PATH = 'notes';
 
