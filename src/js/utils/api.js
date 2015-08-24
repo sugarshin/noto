@@ -7,9 +7,9 @@ import { name as NAMESPACE } from '../../../package';
 
 const STRINGIFY_INITIAL_STORE = JSON.stringify(INITIAL_STORE);
 
-export default {
+export default class api {
 
-  fetch(path) {
+  static fetch(path) {
     return new Promise((resolve, reject) => {
       try {
         const data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
@@ -22,9 +22,9 @@ export default {
         reject(err);
       }
     });
-  },
+  }
 
-  post(path, payload) {
+  static post(path, payload) {
     return new Promise((resolve, reject) => {
       try {
         if (path !== 'notes') {
@@ -38,7 +38,7 @@ export default {
         reject(err);
       }
     });
-  },
+  }
 
   /**
    * @path 'notes', 'settings'
@@ -46,7 +46,7 @@ export default {
    *   All will be update if it was null or undefined
    * { updates } updates Object
    */
-  put(path, { id, updates }) {
+  static put(path, { id, updates }) {
     return new Promise((resolve, reject) => {
       try {
         let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
@@ -69,14 +69,14 @@ export default {
         reject(err);
       }
     });
-  },
+  }
 
   /**
    * @path 'notes'
    * { id } notes id String or null or undefined
    *   All will be delete if it was null or undefined
    */
-  delete(path, id) {
+  static delete(path, id) {
     return new Promise((resolve, reject) => {
       try {
         if (path !== 'notes') {
