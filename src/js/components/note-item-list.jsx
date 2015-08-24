@@ -14,8 +14,6 @@ export default class NoteItemList extends Component {
     return {
       notes: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
-        title: PropTypes.string,
-        body: PropTypes.string,
         createdAt: PropTypes.string,
         trashed: PropTypes.bool,
         tags: PropTypes.arrayOf(PropTypes.string)
@@ -26,6 +24,8 @@ export default class NoteItemList extends Component {
 
   constructor(props) {
     super(props);
+
+    this.handleClickTrashChecked = this.handleClickTrashChecked.bind(this);
   }
 
   render() {
@@ -44,7 +44,7 @@ export default class NoteItemList extends Component {
         <div className="note-list-header">
           <div className="note-list-controller">
             <button className="button-base"
-                    onClick={this._handleClickAddButton.bind(this)}>
+                    onClick={this.handleClickAddButton}>
               <span className="octicon octicon-file-text"></span>
               <span>New</span>
             </button>
@@ -52,13 +52,13 @@ export default class NoteItemList extends Component {
 
           <div className="note-list-controller">
             <button className="button-base"
-                    onClick={this._handleClickToggleCheckAll}>
+                    onClick={this.handleClickToggleCheckAll}>
               <span className="octicon octicon-check"></span>
               <span>Check</span>
             </button>
 
             <button className="button-base"
-                    onClick={this._handleClickTrashCheckedButton.bind(this)}>
+                    onClick={this.handleClickTrashChecked}>
               <span className="octicon octicon-trashcan"></span>
               <span>Trash</span>
             </button>
@@ -70,7 +70,7 @@ export default class NoteItemList extends Component {
                   multi={true}
                   placeholder="Filter tag..."
                   noResultsText="No result"
-                  onChange={this._handleChangeRefineTags.bind(this)}></Select>
+                  onChange={this.handleChangeRefineTags}></Select>
         </div>
 
         <div className="note-list">
@@ -80,6 +80,36 @@ export default class NoteItemList extends Component {
         <NoteListLink />
       </div>
     );
+  }
+
+  handleChangeRefineTags(value) {
+    noteListActions.updateRefineTag(value.split(','));
+  }
+
+  handleClickAddButton() {
+    noteListActions.createNote(assign({}, DEFAULT_NOTE, {
+      createdAt: strftime('%Y-%m-%d %H:%M')
+    }));
+  }
+
+  handleClickToggleCheckAll() {
+    noteListActions.toggleCheckNoteAll();
+  }
+
+  handleClickTrashChecked() {
+    const { notes } = this.props;
+    const checkedNodeIDs = notes.filter(note => note.checked === true)
+      .map(note => note.id);
+
+    noteListActions.trashCheckedNote(checkedNodeIDs);
+  }
+
+  _includesRefineTag(note, refineTag) {
+    if (refineTag.length === 1 && refineTag[0] === '') {
+      return true;
+    }
+    const { tags } = note;
+    return refineTag.every(el => tags.indexOf(el) > -1);
   }
 
   /**
@@ -100,36 +130,6 @@ export default class NoteItemList extends Component {
       .map(tag => {
         return {value: tag, label: tag};
       });
-  }
-
-  _handleChangeRefineTags(value) {
-    noteListActions.updateRefineTag(value.split(','));
-  }
-
-  _handleClickAddButton() {
-    noteListActions.createNote(assign({}, DEFAULT_NOTE, {
-      createdAt: strftime('%Y-%m-%d %H:%M')
-    }));
-  }
-
-  _handleClickToggleCheckAll() {
-    noteListActions.toggleCheckNoteAll();
-  }
-
-  _handleClickTrashCheckedButton() {
-    const { notes } = this.props;
-    const checkedNodeIDs = notes.filter(note => note.checked === true)
-      .map(note => note.id);
-
-    noteListActions.trashCheckedNote(checkedNodeIDs);
-  }
-
-  _includesRefineTag(note, refineTag) {
-    if (refineTag.length === 1 && refineTag[0] === '') {
-      return true;
-    }
-    const { tags } = note;
-    return refineTag.every(el => tags.indexOf(el) > -1);
   }
 
 }
