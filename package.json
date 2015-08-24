@@ -5,6 +5,7 @@
     "start": "gulp",
     "test": "mocha -r mock-local-storage --compilers js:espower-babel/guess src/js/__test__/**/*.js",
     "build": "NODE_ENV=production gulp build",
+    "d": "git subtree push -P public --squash origin gh-pages",
     "deploy": "npm run build && gh-pages-deploy-sh 'public/**/*'"
   },
   "repository": {
