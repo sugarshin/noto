@@ -8,14 +8,7 @@ export default class NotesIndex extends Component {
 
   static get propTypes() {
     return {
-      notes: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        title: PropTypes.string,
-        body: PropTypes.string,
-        createdAt: PropTypes.string,
-        trashed: PropTypes.bool,
-        tags: PropTypes.arrayOf(PropTypes.string)
-      })),
+      notes: PropTypes.arrayOf(PropTypes.object),
       refineTag: PropTypes.arrayOf(PropTypes.string)
     };
   }
