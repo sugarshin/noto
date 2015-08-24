@@ -22,6 +22,10 @@ export default class NoteTitle extends Component {
       isEditingTitle: false
     };
 
+    this.handleChangeTitle = this.handleChangeTitle.bind(this);
+    this.handleClickTitle = this.handleClickTitle.bind(this);
+    this.handleBlurTitleEditor = this.handleBlurTitleEditor.bind(this);
+
     this._throttledUpdateTitle = throttle(noteActions.updateTitle, 400).bind(noteActions);
   }
 
@@ -32,30 +36,29 @@ export default class NoteTitle extends Component {
 
     return (
       <div className={classes}>
-        <div className="note-title"
-             onClick={this._handleClickTitle.bind(this)}>
+        <div className="note-title" onClick={this.handleClickTitle}>
            <span>{this.props.note.title}</span>
            <span className="octicon octicon-pencil"></span>
         </div>
         <input ref="title-editor"
                type="text"
                className="note-title-editor"
-               onChange={this._handleChangeTitle.bind(this)}
-               onBlur={this._handleBlurTitleEditor.bind(this)} />
+               onChange={this.handleChangeTitle}
+               onBlur={this.handleBlurTitleEditor} />
       </div>
     );
   }
 
-  _handleChangeTitle(ev) {
+  handleChangeTitle(ev) {
     this._throttledUpdateTitle(this.props.note.id, ev.currentTarget.value);
   }
 
-  _handleClickTitle() {
+  handleClickTitle() {
     this._toggleTitleEditingMode(true);
     findDOMNode(this.refs['title-editor']).value = this.props.note.title;
   }
 
-  _handleBlurTitleEditor() {
+  handleBlurTitleEditor() {
     this._toggleTitleEditingMode();
   }
 
