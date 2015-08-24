@@ -12,15 +12,16 @@ export default class NoteItem extends Component {
         title: PropTypes.string,
         body: PropTypes.string,
         createdAt: PropTypes.string,
-        trashed: PropTypes.bool,
-        checked: PropTypes.bool,
-        tags: PropTypes.arrayOf(PropTypes.string)
+        checked: PropTypes.bool
       })
     };
   }
 
   constructor(props) {
     super(props);
+
+    this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
+    this.handleClickTrashButton = this.handleClickTrashButton.bind(this);
   }
 
   render() {
@@ -45,11 +46,11 @@ export default class NoteItem extends Component {
             <input type="checkbox"
                    checked={checked}
                    ref="checkbox"
-                   onChange={this._handleChangeCheckbox.bind(this)}/>
+                   onChange={this.handleChangeCheckbox}/>
           </div>
 
           <button className="button-base"
-                  onClick={this._handleClickTrashButton.bind(this)}>
+                  onClick={this.handleClickTrashButton}>
             <span className="octicon octicon-trashcan"></span>
             <span>Trash</span>
           </button>
@@ -58,11 +59,11 @@ export default class NoteItem extends Component {
     );
   }
 
-  _handleChangeCheckbox() {
+  handleChangeCheckbox() {
     noteListActions.toggleCheckNote(this.props.note.id);
   }
 
-  _handleClickTrashButton() {
+  handleClickTrashButton() {
     noteListActions.trashNote(this.props.note.id);
   }
 
