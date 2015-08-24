@@ -21,9 +21,9 @@ export default class App extends Component {
       refineTag: refineTagStore.getTags()
     };
 
-    this._boundChangeNoteStore = this._changeNoteStore.bind(this);
-    this._boundChangeSettingStore = this._changeSettingStore.bind(this);
-    this._boundChangeRefineTagStore = this._changeRefineTagStore.bind(this);
+    this.changeNoteStore = this.changeNoteStore.bind(this);
+    this.changeSettingStore = this.changeSettingStore.bind(this);
+    this.changeRefineTagStore = this.changeRefineTagStore.bind(this);
   }
 
   componentWillMount() {
@@ -32,15 +32,15 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    noteStore.addChangeListener(this._boundChangeNoteStore);
-    settingStore.addChangeListener(this._boundChangeSettingStore);
-    refineTagStore.addChangeListener(this._boundChangeRefineTagStore);
+    noteStore.addChangeListener(this.changeNoteStore);
+    settingStore.addChangeListener(this.changeSettingStore);
+    refineTagStore.addChangeListener(this.changeRefineTagStore);
   }
 
   componentWillUnmount() {
-    noteStore.removeChangeListener(this._boundChangeNoteStore);
-    settingStore.removeChangeListener(this._boundChangeSettingStore);
-    refineTagStore.removeChangeListener(this._boundChangeRefineTagStore);
+    noteStore.removeChangeListener(this.changeNoteStore);
+    settingStore.removeChangeListener(this.changeSettingStore);
+    refineTagStore.removeChangeListener(this.changeRefineTagStore);
   }
 
   render() {
@@ -53,19 +53,19 @@ export default class App extends Component {
     );
   }
 
-  _changeNoteStore() {
+  changeNoteStore() {
     this.setState({
       notes: noteStore.getNotes()
     });
   }
 
-  _changeSettingStore() {
+  changeSettingStore() {
     this.setState({
       setting: settingStore.getSettings()
     });
   }
 
-  _changeRefineTagStore() {
+  changeRefineTagStore() {
     this.setState({
       refineTag: refineTagStore.getTags()
     });
