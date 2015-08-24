@@ -15,19 +15,16 @@ export default class Note extends Component {
         title: PropTypes.string,
         body: PropTypes.string,
         createdAt: PropTypes.string,
-        trashed: PropTypes.bool,
         tags: PropTypes.arrayOf(PropTypes.string)
       }),
-      setting: PropTypes.shape({
-        color: PropTypes.string,
-        size: PropTypes.number,
-        backgroundColor: PropTypes.string
-      })
+      setting: PropTypes.object
     };
   }
 
   constructor(props) {
     super(props);
+
+    this.handleChangeTags = this.handleChangeTags.bind(this);
   }
 
   render() {
@@ -41,14 +38,14 @@ export default class Note extends Component {
                    ref="tags"
                    placeholder="Add a tag..."
                    classNames={{div: 'react-tagsinput note-tags'}}
-                   onChange={this._handleChangeTags.bind(this)} />
+                   onChange={this.handleChangeTags} />
         <NoteTextarea note={note} setting={setting} />
         <CopyButton note={{body: note.body}} />
       </div>
     );
   }
 
-  _handleChangeTags(tags) {
+  handleChangeTags(tags) {
     noteActions.updateTag(this.props.note.id, tags);
   }
 
