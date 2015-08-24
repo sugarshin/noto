@@ -12,17 +12,9 @@ export default class Notes extends Component {
     return {
       notes: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
-        title: PropTypes.string,
-        body: PropTypes.string,
-        createdAt: PropTypes.string,
-        trashed: PropTypes.bool,
-        tags: PropTypes.arrayOf(PropTypes.string)
+        title: PropTypes.string
       })),
-      setting: PropTypes.shape({
-        color: PropTypes.string,
-        size: PropTypes.number,
-        backgroundColor: PropTypes.string
-      }),
+      setting: PropTypes.object,
       refineTag: PropTypes.arrayOf(PropTypes.string)
     };
   }
