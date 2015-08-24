@@ -22,11 +22,11 @@ export default class NoteTitle extends Component {
       isEditingTitle: false
     };
 
+    this._throttledUpdateTitle = throttle(noteActions.updateTitle, 400).bind(noteActions);
+
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleClickTitle = this.handleClickTitle.bind(this);
     this.handleBlurTitleEditor = this.handleBlurTitleEditor.bind(this);
-
-    this._throttledUpdateTitle = throttle(noteActions.updateTitle, 400).bind(noteActions);
   }
 
   render() {
