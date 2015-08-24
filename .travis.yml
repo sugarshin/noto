@@ -8,8 +8,7 @@ branches:
 cache:
   directories:
     - node_modules
-after_script:
-  - npm run build
+after_success:
   - npm run deploy
 env:
   global:

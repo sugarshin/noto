@@ -5,7 +5,7 @@
     "start": "gulp",
     "test": "mocha -r mock-local-storage --compilers js:espower-babel/guess src/js/__test__/**/*.js",
     "build": "NODE_ENV=production gulp build",
-    "deploy": "gh-pages-deploy-sh 'public'"
+    "deploy": "npm run build && gh-pages-deploy-sh 'public'"
   },
   "repository": {
     "type": "git",
@@ -47,7 +47,7 @@
     "browserify": "^11.0.1",
     "del": "^1.2.1",
     "espower-babel": "^3.2.0",
-    "gh-pages-deploy-sh": "sugarshin/gh-pages-deploy-sh#patch-1",
+    "gh-pages-deploy-sh": "^1.2.7",
     "gulp": "^3.9.0",
     "gulp-jade": "^1.1.0",
     "gulp-load-plugins": "^0.10.0",
