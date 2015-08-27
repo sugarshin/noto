@@ -19,6 +19,7 @@ export default keyMirror({
   CHANGE_TEXT_SIZE: null,
   CHANGE_BACKGROUND_COLOR: null,
   RESET_SETTINGS: null,
+  CHANGE_OPEN_SETTINGS: null,
 
   FETCH_NOTES: null,
   FETCH_SETTINGS: null,

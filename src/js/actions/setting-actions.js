@@ -69,6 +69,13 @@ export default class SettingActions {
     this._debouncedApi({ updates: settings });
   }
 
+  changeOpenSetting(isOpenSetting) {
+    dispatcher.dispatch({
+      actionType: ActionTypes.CHANGE_OPEN_SETTINGS,
+      isOpenSetting
+    });
+  }
+
   _api(data) {
     api.put(API_PATH, data);
   }
