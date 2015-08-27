@@ -10,7 +10,11 @@ export default class SettingStore extends EventEmitter {
 
   constructor() {
     super();
-    this._settings = {};
+    this._settings = {
+      styles: {},
+      isOpenSetting: false
+    };
+
     dispatcher.register(this._handler.bind(this));
   }
 
@@ -31,11 +35,15 @@ export default class SettingStore extends EventEmitter {
   }
 
   _fetch(settings) {
-    this._settings = settings;
+    this._settings.styles = settings;
   }
 
   _update(data) {
-    this._settings = assign({}, this._settings, data);
+    this._settings.styles = assign({}, this._settings.styles, data);
+  }
+
+  _changeOpenSetting(isOpenSetting) {
+    this._settings.isOpenSetting = isOpenSetting;
   }
 
   _handler(action) {
@@ -63,6 +71,11 @@ export default class SettingStore extends EventEmitter {
 
       case ActionTypes.RESET_SETTINGS:
         this._update(action.data);
+        this._emitChange();
+        break;
+
+      case ActionTypes.CHANGE_OPEN_SETTINGS:
+        this._changeOpenSetting(action.isOpenSetting);
         this._emitChange();
         break;
 

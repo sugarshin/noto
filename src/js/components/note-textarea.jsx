@@ -12,9 +12,11 @@ export default class NoteTextarea extends Component {
         body: PropTypes.string
       }),
       setting: PropTypes.shape({
-        color: PropTypes.string,
-        size: PropTypes.number,
-        backgroundColor: PropTypes.string
+        styles: PropTypes.shape({
+          color: PropTypes.string,
+          size: PropTypes.number,
+          backgroundColor: PropTypes.string
+        })
       })
     };
   }
@@ -36,9 +38,9 @@ export default class NoteTextarea extends Component {
   render() {
     const { note, setting } = this.props;
     const styles = {
-      color: setting.color,
-      backgroundColor: setting.backgroundColor,
-      fontSize: setting.size
+      color: setting.styles.color,
+      backgroundColor: setting.styles.backgroundColor,
+      fontSize: setting.styles.size
     };
 
     return (

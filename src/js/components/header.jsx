@@ -6,11 +6,7 @@ export default class Header extends Component {
 
   static get propTypes() {
     return {
-      setting: PropTypes.shape({
-        color: PropTypes.string,
-        size: PropTypes.number,
-        backgroundColor: PropTypes.string
-      })
+      setting: PropTypes.object
     };
   }
 
