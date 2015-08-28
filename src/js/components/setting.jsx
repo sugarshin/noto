@@ -5,6 +5,7 @@ import ColorPicker from 'react-color-picker';
 
 import { settingActions } from '../context';
 import {
+  DEFAULT,
   INITIAL_STORE,
   FONT_SIZE_VARIATION,
   APP_ELEMENT_ID } from '../constants/constants';
@@ -79,6 +80,15 @@ export default class Setting extends Component {
                            saturationHeight={128}
                            hueWidth={24} />
             </div>
+
+            <div className="setting-item setting-reset-container">
+              <button className="button-base text-light"
+                      onClick={this.handleClickResetButton}>
+                <span className="octicon octicon-primitive-square"></span>
+                <span>Reset</span>
+              </button>
+            </div>
+
           </div>
         </Modal>
       </div>
@@ -104,6 +114,10 @@ export default class Setting extends Component {
 
   handleDragBackgroundColor(color, c) {
     settingActions.changeBackgroundColor(color);
+  }
+
+  handleClickResetButton() {
+    settingActions.reset(DEFAULT.settings);
   }
 
 }

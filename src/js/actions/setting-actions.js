@@ -58,15 +58,13 @@ export default class SettingActions {
     this._debouncedApi({ updates: {backgroundColor} });
   }
 
-  reset() {
-    const { settings } = INITIAL_STORE;
-
+  reset(updates) {
     dispatcher.dispatch({
       actionType: ActionTypes.RESET_SETTINGS,
-      data: settings
+      updates
     });
 
-    this._debouncedApi({ updates: settings });
+    this._debouncedApi({ updates });
   }
 
   changeOpenSetting(isOpenSetting) {

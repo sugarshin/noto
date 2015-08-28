@@ -70,7 +70,7 @@ export default class SettingStore extends EventEmitter {
         break;
 
       case ActionTypes.RESET_SETTINGS:
-        this._update(action.data);
+        this._update(action.updates);
         this._emitChange();
         break;
 
