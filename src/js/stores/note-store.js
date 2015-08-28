@@ -113,10 +113,10 @@ export default class NoteStore extends EventEmitter {
     });
   }
 
-  _inputText(id, text) {
+  _updateBody(id, body) {
     this._notes = this._notes.map(note => {
       if (note.id === id) {
-        note.body = text;
+        note.body = body;
       }
       return note;
     });
@@ -185,8 +185,8 @@ export default class NoteStore extends EventEmitter {
         this._emitChange();
         break;
 
-      case ActionTypes.INPUT_TEXT:
-        this._inputText(action.id, action.text);
+      case ActionTypes.UPDATE_BODY:
+        this._updateBody(action.id, action.body);
         this._emitChange();
         break;
 

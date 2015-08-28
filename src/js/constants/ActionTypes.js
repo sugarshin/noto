@@ -13,7 +13,7 @@ export default keyMirror({
 
   UPDATE_TITLE: null,
   UPDATE_TAG: null,
-  INPUT_TEXT: null,
+  UPDATE_BODY: null,
 
   CHANGE_TEXT_COLOR: null,
   CHANGE_TEXT_SIZE: null,

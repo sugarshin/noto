@@ -24,7 +24,7 @@ export default class NoteTextarea extends Component {
   constructor(props) {
     super(props);
 
-    this._throttledInputText = throttle(noteActions.inputText, 400).bind(noteActions);
+    this._throttledUpdateBody = throttle(noteActions.updateBody, 400).bind(noteActions);
     this.handleChangeText = this.handleChangeText.bind(this);
   }
 
@@ -55,7 +55,7 @@ export default class NoteTextarea extends Component {
   }
 
   handleChangeText(ev) {
-    this._throttledInputText(this.props.note.id, ev.currentTarget.value);
+    this._throttledUpdateBody(this.props.note.id, ev.currentTarget.value);
   }
 
 }

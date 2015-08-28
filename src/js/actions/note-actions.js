@@ -34,13 +34,13 @@ export default class NoteActions {
     this._api(id, {title});
   }
 
-  inputText(id, text) {
+  updateBody(id, body) {
     dispatcher.dispatch({
-      actionType: ActionTypes.INPUT_TEXT,
+      actionType: ActionTypes.UPDATE_BODY,
       id,
-      text
+      body
     });
-    this._debouncedApi(id, {body: text});
+    this._debouncedApi(id, {body});
   }
 
   _api(id, updates) {
