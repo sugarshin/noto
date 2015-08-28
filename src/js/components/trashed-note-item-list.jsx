@@ -18,6 +18,9 @@ export default class TrashedNoteItemList extends Component {
 
   constructor(props) {
     super(props);
+
+    this.handleClickRestoreAllButton = this.handleClickRestoreAllButton.bind(this);
+    this.handleClickDestroyAllButton = this.handleClickDestroyAllButton.bind(this);
   }
 
   render() {
@@ -52,12 +55,22 @@ export default class TrashedNoteItemList extends Component {
   }
 
   handleClickRestoreAllButton() {
+    const { notes } = this.props;
+    if (notes.every(note => note.trashed === false)) {
+      return;
+    }
+
     if (confirm('Are you sure ?')) {
       noteListActions.restoreNoteAll();
     }
   }
 
   handleClickDestroyAllButton() {
+    const { notes } = this.props;
+    if (notes.every(note => note.trashed === false)) {
+      return;
+    }
+
     if (confirm('Are you sure ?')) {
       noteListActions.destroyNoteAll();
     }
