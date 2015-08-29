@@ -12,7 +12,7 @@ describe('NoteActions', () => {
     _id = crypto.randomBytes(16).toString('hex');
   });
 
-  describe('.updateTag()', () => {
+  describe('updateTag()', () => {
 
     it('case 1', () => {
       const tagName = 'tag';
@@ -29,7 +29,7 @@ describe('NoteActions', () => {
 
   });
 
-  describe('.updateTitle()', () => {
+  describe('updateTitle()', () => {
 
     it('case 1', () => {
       const title = 'title1';
