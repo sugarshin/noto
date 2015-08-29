@@ -38,11 +38,11 @@ export default class SettingStore extends EventEmitter {
     this._settings.styles = settings;
   }
 
-  _update(data) {
-    this._settings.styles = assign({}, this._settings.styles, data);
+  _update(updates) {
+    this._settings.styles = assign({}, this._settings.styles, updates);
   }
 
-  _changeOpenSetting(isOpenSetting) {
+  _changeIsOpenSetting(isOpenSetting) {
     this._settings.isOpenSetting = isOpenSetting;
   }
 
@@ -75,7 +75,7 @@ export default class SettingStore extends EventEmitter {
         break;
 
       case ActionTypes.CHANGE_OPEN_SETTINGS:
-        this._changeOpenSetting(action.isOpenSetting);
+        this._changeIsOpenSetting(action.isOpenSetting);
         this._emitChange();
         break;
 

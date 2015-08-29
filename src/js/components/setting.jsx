@@ -97,11 +97,11 @@ export default class Setting extends Component {
 
   handleClickOpenModal() {
     const { isOpenSetting } = this.props.setting;
-    settingActions.changeOpenSetting(!isOpenSetting);
+    settingActions.changeIsOpenSetting(!isOpenSetting);
   }
 
   handleCloseModal() {
-    settingActions.changeOpenSetting(false);
+    settingActions.changeIsOpenSetting(false);
   }
 
   handleChangeFontSize(value) {
