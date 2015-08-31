@@ -59,6 +59,7 @@
     "gulp-stylus": "^2.0.6",
     "gulp-uglify": "^1.4.0",
     "licensify": "^1.4.0",
+    "lodash": "^3.10.1",
     "mocha": "^2.2.5",
     "mock-local-storage": "^1.0.2",
     "nib": "^1.1.0",
