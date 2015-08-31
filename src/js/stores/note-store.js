@@ -71,11 +71,11 @@ export default class NoteStore extends EventEmitter {
     });
   }
 
-  _destroyNote(id) {
+  _destroyTrashedNote(id) {
     this._notes = this._notes.filter(note => note.id !== id);
   }
 
-  _destroyNoteAll() {
+  _destroyTrashedNoteAll() {
     this._notes = this._notes.filter(note => note.trashed === false);
   }
 
@@ -156,12 +156,12 @@ export default class NoteStore extends EventEmitter {
         break;
 
       case ActionTypes.DESTROY_NOTE:
-        this._destroyNote(action.id)
+        this._destroyTrashedNote(action.id)
         this._emitChange();
         break;
 
       case ActionTypes.DESTROY_NOTE_ALL:
-        this._destroyNoteAll()
+        this._destroyTrashedNoteAll()
         this._emitChange();
         break;
 
