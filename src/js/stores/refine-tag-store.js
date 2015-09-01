@@ -29,7 +29,7 @@ export default class RefineTagStore extends EventEmitter {
     this.emit(CHANGE_EVENT);
   }
 
-  _update(tags) {
+  _replace(tags) {
     this._tags = tags;
   }
 
@@ -37,7 +37,7 @@ export default class RefineTagStore extends EventEmitter {
     switch (action.actionType) {
 
       case ActionTypes.UPDATE_REFINE_TAG:
-        this._update(action.tags);
+        this._replace(action.tags);
         this._emitChange();
         break;
 
