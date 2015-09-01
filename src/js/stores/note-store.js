@@ -1,4 +1,5 @@
 import EventEmitter from 'eventemitter3';
+import assign from 'object-assign';
 
 import dispatcher from '../dispatcher/dispatcher';
 import ActionTypes from '../constants/ActionTypes';
@@ -95,28 +96,10 @@ export default class NoteStore extends EventEmitter {
     });
   }
 
-  _updateTag(id, tags) {
+  _updateNote(id, payload) {
     this._notes = this._notes.map(note => {
       if (note.id === id) {
-        note.tags = tags;
-      }
-      return note;
-    });
-  }
-
-  _updateTitle(id, title) {
-    this._notes = this._notes.map(note => {
-      if (note.id === id) {
-        note.title = title;
-      }
-      return note;
-    });
-  }
-
-  _updateBody(id, body) {
-    this._notes = this._notes.map(note => {
-      if (note.id === id) {
-        note.body = body;
+        note = assign({}, note, payload);
       }
       return note;
     });
@@ -176,17 +159,17 @@ export default class NoteStore extends EventEmitter {
         break;
 
       case ActionTypes.UPDATE_TAG:
-        this._updateTag(action.id, action.tags);
+        this._updateNote(action.id, {tags: action.tags});
         this._emitChange();
         break;
 
       case ActionTypes.UPDATE_TITLE:
-        this._updateTitle(action.id, action.title);
+        this._updateNote(action.id, {title: action.title});
         this._emitChange();
         break;
 
       case ActionTypes.UPDATE_BODY:
-        this._updateBody(action.id, action.body);
+        this._updateNote(action.id, {body: action.body});
         this._emitChange();
         break;
 
