@@ -96,10 +96,10 @@ export default class NoteStore extends EventEmitter {
     });
   }
 
-  _updateNote(id, payload) {
+  _updateNote(id, updates) {
     this._notes = this._notes.map(note => {
       if (note.id === id) {
-        note = assign({}, note, payload);
+        note = assign({}, note, updates);
       }
       return note;
     });
