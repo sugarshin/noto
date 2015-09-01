@@ -12,14 +12,14 @@ describe('NoteStore', () => {
     done();
   });
 
-  describe('_fetchNotes()', () => {
+  describe('_replaceNotes()', () => {
     it('case 1', () => {
       const _assert = () => {
         noteStore.removeChangeListener(_assert);
         assert.deepEqual(noteStore.getNotes(), [DEFAULT_NOTE]);
       };
       noteStore.addChangeListener(_assert);
-      noteStore._fetchNotes([DEFAULT_NOTE]);
+      noteStore._replaceNotes([DEFAULT_NOTE]);
       noteStore._emitChange();
     });
   });
@@ -206,6 +206,74 @@ describe('NoteStore', () => {
       };
       noteStore.addChangeListener(_assert);
       noteStore._toggleCheckNoteAll();
+      noteStore._emitChange();
+    });
+  });
+
+  describe('_updateNote()', () => {
+    it('case note.title', () => {
+      const _ids = [
+        123, 234, 345
+      ];
+      noteStore._notes = [
+        _.assign({}, DEFAULT_NOTE, {id: _ids[0], title: 'title1'}),
+        _.assign({}, DEFAULT_NOTE, {id: _ids[1], title: 'title2'}),
+        _.assign({}, DEFAULT_NOTE, {id: _ids[2], title: 'title3'})
+      ];
+
+      const _assert1 = () => {
+        const notes = noteStore.getNotes();
+        noteStore.removeChangeListener(_assert1);
+        assert.deepEqual(notes[0].title, 'title1');
+        assert.deepEqual(notes[1].title, 'title2');
+        assert.deepEqual(notes[2].title, 'update title');
+      };
+      noteStore.addChangeListener(_assert1);
+      noteStore._updateNote(_ids[2], {title: 'update title'});
+      noteStore._emitChange();
+    });
+
+    it('case note.body', () => {
+      const _ids = [
+        123, 234, 345
+      ];
+      noteStore._notes = [
+        _.assign({}, DEFAULT_NOTE, {id: _ids[0], body: 'body1'}),
+        _.assign({}, DEFAULT_NOTE, {id: _ids[1], body: 'body2'}),
+        _.assign({}, DEFAULT_NOTE, {id: _ids[2], body: 'body3'})
+      ];
+
+      const _assert2 = () => {
+        const notes = noteStore.getNotes();
+        noteStore.removeChangeListener(_assert2);
+        assert.deepEqual(notes[0].body, 'body1');
+        assert.deepEqual(notes[1].body, 'body2');
+        assert.deepEqual(notes[2].body, 'update body');
+      };
+      noteStore.addChangeListener(_assert2);
+      noteStore._updateNote(_ids[2], {body: 'update body'});
+      noteStore._emitChange();
+    });
+
+    it('case note.tags', () => {
+      const _ids = [
+        123, 234, 345
+      ];
+      noteStore._notes = [
+        _.assign({}, DEFAULT_NOTE, {id: _ids[0], tags: ['tag1', 'tag2', 'tag3']}),
+        _.assign({}, DEFAULT_NOTE, {id: _ids[1], tags: ['tag1', 'tag2']}),
+        _.assign({}, DEFAULT_NOTE, {id: _ids[2], tags: ['tag1', 'tag3']})
+      ];
+
+      const _assert3 = () => {
+        const notes = noteStore.getNotes();
+        noteStore.removeChangeListener(_assert3);
+        assert.deepEqual(notes[0].tags, ['tag1', 'tag2', 'tag3']);
+        assert.deepEqual(notes[1].tags, ['tag1', 'tag2']);
+        assert.deepEqual(notes[2].tags, ['12']);
+      };
+      noteStore.addChangeListener(_assert3);
+      noteStore._updateNote(_ids[2], {tags: ['12']});
       noteStore._emitChange();
     });
   });
