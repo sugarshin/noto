@@ -29,7 +29,7 @@ export default class NoteStore extends EventEmitter {
     this.emit(CHANGE_EVENT);
   }
 
-  _fetchNotes(notes) {
+  _replaceNotes(notes) {
     this._notes = notes;
   }
 
@@ -126,7 +126,7 @@ export default class NoteStore extends EventEmitter {
     switch (action.actionType) {
 
       case ActionTypes.FETCH_NOTES:
-        this._fetchNotes(action.notes);
+        this._replaceNotes(action.notes);
         this._emitChange();
         break;
 
