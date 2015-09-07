@@ -21,7 +21,7 @@ const bundler = isWatch => {
     b = browserify(browserifyOpts);
   }
 
-  b.plugin(licensify, {scanBrowser: true});
+  b.plugin(licensify);
 
   const bundle = () => {
     return b.bundle()
