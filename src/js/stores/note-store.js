@@ -108,73 +108,73 @@ export default class NoteStore extends EventEmitter {
   _handler(action) {
     switch (action.actionType) {
 
-      case ActionTypes.FETCH_NOTES:
-        this._replaceNotes(action.notes);
-        this._emitChange();
-        break;
+    case ActionTypes.FETCH_NOTES:
+      this._replaceNotes(action.notes);
+      this._emitChange();
+      break;
 
-      case ActionTypes.CREATE_NOTE:
-        this._createNote(action.note);
-        this._emitChange();
-        break;
+    case ActionTypes.CREATE_NOTE:
+      this._createNote(action.note);
+      this._emitChange();
+      break;
 
-      case ActionTypes.TRASH_NOTE:
-        this._trashNote(action.id);
-        this._emitChange();
-        break;
+    case ActionTypes.TRASH_NOTE:
+      this._trashNote(action.id);
+      this._emitChange();
+      break;
 
-      case ActionTypes.TRASH_CHECKED_NOTE:
-        this._trashCheckedNote(action.ids);
-        this._emitChange();
-        break;
+    case ActionTypes.TRASH_CHECKED_NOTE:
+      this._trashCheckedNote(action.ids);
+      this._emitChange();
+      break;
 
-      case ActionTypes.RESTORE_NOTE:
-        this._restoreNote(action.id);
-        this._emitChange();
-        break;
+    case ActionTypes.RESTORE_NOTE:
+      this._restoreNote(action.id);
+      this._emitChange();
+      break;
 
-      case ActionTypes.RESTORE_NOTE_ALL:
-        this._restoreNoteAll();
-        this._emitChange();
-        break;
+    case ActionTypes.RESTORE_NOTE_ALL:
+      this._restoreNoteAll();
+      this._emitChange();
+      break;
 
-      case ActionTypes.DESTROY_NOTE:
-        this._destroyNote(action.id)
-        this._emitChange();
-        break;
+    case ActionTypes.DESTROY_NOTE:
+      this._destroyNote(action.id)
+      this._emitChange();
+      break;
 
-      case ActionTypes.DESTROY_NOTE_ALL:
-        this._destroyTrashedNoteAll()
-        this._emitChange();
-        break;
+    case ActionTypes.DESTROY_NOTE_ALL:
+      this._destroyTrashedNoteAll()
+      this._emitChange();
+      break;
 
-      case ActionTypes.TOGGLE_CHECK_NOTE:
-        this._toggleCheckNote(action.id)
-        this._emitChange();
-        break;
+    case ActionTypes.TOGGLE_CHECK_NOTE:
+      this._toggleCheckNote(action.id)
+      this._emitChange();
+      break;
 
-      case ActionTypes.TOGGLE_CHECK_NOTE_ALL:
-        this._toggleCheckNoteAll()
-        this._emitChange();
-        break;
+    case ActionTypes.TOGGLE_CHECK_NOTE_ALL:
+      this._toggleCheckNoteAll()
+      this._emitChange();
+      break;
 
-      case ActionTypes.UPDATE_TAG:
-        this._updateNote(action.id, {tags: action.tags});
-        this._emitChange();
-        break;
+    case ActionTypes.UPDATE_TAG:
+      this._updateNote(action.id, {tags: action.tags});
+      this._emitChange();
+      break;
 
-      case ActionTypes.UPDATE_TITLE:
-        this._updateNote(action.id, {title: action.title});
-        this._emitChange();
-        break;
+    case ActionTypes.UPDATE_TITLE:
+      this._updateNote(action.id, {title: action.title});
+      this._emitChange();
+      break;
 
-      case ActionTypes.UPDATE_BODY:
-        this._updateNote(action.id, {body: action.body});
-        this._emitChange();
-        break;
+    case ActionTypes.UPDATE_BODY:
+      this._updateNote(action.id, {body: action.body});
+      this._emitChange();
+      break;
 
-      default:
-        // noop
+    default:
+      // noop
 
     }
   }

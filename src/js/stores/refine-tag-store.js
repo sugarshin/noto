@@ -36,13 +36,13 @@ export default class RefineTagStore extends EventEmitter {
   _handler(action) {
     switch (action.actionType) {
 
-      case ActionTypes.UPDATE_REFINE_TAG:
-        this._replace(action.tags);
-        this._emitChange();
-        break;
+    case ActionTypes.UPDATE_REFINE_TAG:
+      this._replace(action.tags);
+      this._emitChange();
+      break;
 
-      default:
-        // noop
+    default:
+      // noop
 
     }
   }

@@ -49,38 +49,38 @@ export default class SettingStore extends EventEmitter {
   _handler(action) {
     switch (action.actionType) {
 
-      case ActionTypes.FETCH_SETTINGS:
-        this._fetch(action.data);
-        this._emitChange();
-        break;
+    case ActionTypes.FETCH_SETTINGS:
+      this._fetch(action.data);
+      this._emitChange();
+      break;
 
-      case ActionTypes.CHANGE_TEXT_COLOR:
-        this._update({color: action.color});
-        this._emitChange();
-        break;
+    case ActionTypes.CHANGE_TEXT_COLOR:
+      this._update({color: action.color});
+      this._emitChange();
+      break;
 
-      case ActionTypes.CHANGE_TEXT_SIZE:
-        this._update({size: action.size});
-        this._emitChange();
-        break;
+    case ActionTypes.CHANGE_TEXT_SIZE:
+      this._update({size: action.size});
+      this._emitChange();
+      break;
 
-      case ActionTypes.CHANGE_BACKGROUND_COLOR:
-        this._update({backgroundColor: action.backgroundColor});
-        this._emitChange();
-        break;
+    case ActionTypes.CHANGE_BACKGROUND_COLOR:
+      this._update({backgroundColor: action.backgroundColor});
+      this._emitChange();
+      break;
 
-      case ActionTypes.RESET_SETTINGS:
-        this._update(action.updates);
-        this._emitChange();
-        break;
+    case ActionTypes.RESET_SETTINGS:
+      this._update(action.updates);
+      this._emitChange();
+      break;
 
-      case ActionTypes.CHANGE_OPEN_SETTINGS:
-        this._changeIsOpenSetting(action.isOpenSetting);
-        this._emitChange();
-        break;
+    case ActionTypes.CHANGE_OPEN_SETTINGS:
+      this._changeIsOpenSetting(action.isOpenSetting);
+      this._emitChange();
+      break;
 
-      default:
-        // noop
+    default:
+      // noop
 
     }
   }
