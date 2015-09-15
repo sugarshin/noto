@@ -11,7 +11,7 @@ const API_PATH = 'notes';
 export default class NoteListActions {
 
   fetch() {
-    co(function* __fetch__() {
+    co(function* fetch() {
       try {
         const notes = yield api.fetch(API_PATH);
         dispatcher.dispatch({
