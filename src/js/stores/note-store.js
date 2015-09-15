@@ -35,7 +35,7 @@ export default class NoteStore extends EventEmitter {
   }
 
   _createNote(note) {
-    this._notes.push(note);
+    this._notes.unshift(note);
   }
 
   _trashNote(id) {
