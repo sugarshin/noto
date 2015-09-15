@@ -31,7 +31,7 @@ export default class api {
           throw new Error('api.post() only notes');
         }
         let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
-        data[path].push(payload);
+        data[path].unshift(payload);
         localStorage.setItem(NAMESPACE, JSON.stringify(data));
         resolve();
       } catch (err) {
