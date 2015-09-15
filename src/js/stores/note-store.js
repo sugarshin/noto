@@ -49,7 +49,7 @@ export default class NoteStore extends EventEmitter {
 
   _trashCheckedNote(ids) {
     this._notes = this._notes.map(note => {
-      if (ids.indexOf(note.id) !== -1) {
+      if (ids.indexOf(note.id) > -1) {
         note.trashed = true;
       }
       return note;
