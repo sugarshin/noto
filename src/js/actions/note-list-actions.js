@@ -110,4 +110,17 @@ export default class NoteListActions {
     });
   }
 
+  descendingSortNotes(key) {
+    dispatcher.dispatch({
+      actionType: ActionTypes.DESCENDING_SORT_NOTE,
+      key
+    });
+  }
+
+  ascendingSortNotes(key) {
+    dispatcher.dispatch({
+      actionType: ActionTypes.ASCENDING_SORT_NOTE,
+      key
+    });
+  }
 }

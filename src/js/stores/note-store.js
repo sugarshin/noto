@@ -105,6 +105,18 @@ export default class NoteStore extends EventEmitter {
     });
   }
 
+  _descendingSortNote(key) {
+    this._notes = this._notes.slice().sort((a, b) => {
+      return +new Date(a[key]) - +new Date(b[key]);
+    });
+  }
+
+  _ascendingSortNote(key) {
+    this._notes = this._notes.slice().sort((a, b) => {
+      return +new Date(b[key]) - +new Date(a[key]);
+    });
+  }
+
   _handler(action) {
     switch (action.actionType) {
 
@@ -170,6 +182,16 @@ export default class NoteStore extends EventEmitter {
 
     case ActionTypes.UPDATE_BODY:
       this._updateNote(action.id, {body: action.body});
+      this._emitChange();
+      break;
+
+    case ActionTypes.DESCENDING_SORT_NOTE:
+      this._descendingSortNote(action.key);
+      this._emitChange();
+      break;
+
+    case ActionTypes.ASCENDING_SORT_NOTE:
+      this._ascendingSortNote(action.key);
       this._emitChange();
       break;
 

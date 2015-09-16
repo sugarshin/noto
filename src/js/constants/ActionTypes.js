@@ -10,6 +10,8 @@ export default keyMirror({
   DESTROY_NOTE_ALL: null,
   TOGGLE_CHECK_NOTE: null,
   TOGGLE_CHECK_NOTE_ALL: null,
+  DESCENDING_SORT_NOTE: null,
+  ASCENDING_SORT_NOTE: null,
 
   UPDATE_TITLE: null,
   UPDATE_TAG: null,
