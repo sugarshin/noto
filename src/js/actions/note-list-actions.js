@@ -5,15 +5,14 @@ import dispatcher from '../dispatcher/dispatcher';
 import api from '../utils/api';
 
 import ActionTypes from '../constants/ActionTypes';
-
-const API_PATH = 'notes';
+import { NOTES_API_PATH } from '../constants/constants';
 
 export default class NoteListActions {
 
   fetch() {
     co(function* fetch() {
       try {
-        const notes = yield api.fetch(API_PATH);
+        const notes = yield api.fetch(NOTES_API_PATH);
         dispatcher.dispatch({
           actionType: ActionTypes.FETCH_NOTES,
           notes
@@ -32,7 +31,7 @@ export default class NoteListActions {
       note
     });
 
-    api.post(API_PATH, note);
+    api.post(NOTES_API_PATH, note);
   }
 
   trashNote(id) {
@@ -41,7 +40,7 @@ export default class NoteListActions {
       id
     });
 
-    api.put(API_PATH, { id, updates: {trashed: true} });
+    api.put(NOTES_API_PATH, { id, updates: {trashed: true} });
   }
 
   trashCheckedNote(ids) {
@@ -52,7 +51,7 @@ export default class NoteListActions {
 
     // TODO
     ids.forEach(id => {
-      api.put(API_PATH, { id, updates: {trashed: true} });
+      api.put(NOTES_API_PATH, { id, updates: {trashed: true} });
     });
   }
 
@@ -62,7 +61,7 @@ export default class NoteListActions {
       id
     });
 
-    api.put(API_PATH, { id, updates: {trashed: false} });
+    api.put(NOTES_API_PATH, { id, updates: {trashed: false} });
   }
 
   restoreNoteAll() {
@@ -70,7 +69,7 @@ export default class NoteListActions {
       actionType: ActionTypes.RESTORE_NOTE_ALL
     });
 
-    api.put(API_PATH, { updates: {trashed: false} });
+    api.put(NOTES_API_PATH, { updates: {trashed: false} });
   }
 
   destroyNote(id) {
@@ -79,7 +78,7 @@ export default class NoteListActions {
       id
     });
 
-    api.delete(API_PATH, id);
+    api.delete(NOTES_API_PATH, id);
   }
 
   destroyNoteAll() {
@@ -87,7 +86,7 @@ export default class NoteListActions {
       actionType: ActionTypes.DESTROY_NOTE_ALL
     });
 
-    api.delete(API_PATH);
+    api.delete(NOTES_API_PATH);
   }
 
   updateRefineTag(tags) {
@@ -115,6 +114,8 @@ export default class NoteListActions {
       actionType: ActionTypes.DESCENDING_SORT_NOTE,
       key
     });
+
+    api.put(`${NOTES_API_PATH}?sort=descending&key=${key}`);
   }
 
   ascendingSortNotes(key) {
@@ -122,5 +123,7 @@ export default class NoteListActions {
       actionType: ActionTypes.ASCENDING_SORT_NOTE,
       key
     });
+
+    api.put(`${NOTES_API_PATH}?sort=ascending&key=${key}`);
   }
 }

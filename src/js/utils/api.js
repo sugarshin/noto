@@ -1,7 +1,14 @@
 import Promise from 'bluebird';
 import assign from 'object-assign';
+import url from 'url';
+import qs from 'qs';
 
-import { INITIAL_STORE } from '../constants/constants';
+import {
+  INITIAL_STORE,
+  NOTES_API_PATH,
+  SETTINGS_API_PATH } from '../constants/constants';
+
+import apiPathToTableName from './apiPathToTableName';
 
 import { name as NAMESPACE } from '../../../package';
 
@@ -20,8 +27,10 @@ export default class api {
     return new Promise((resolve, reject) => {
       try {
         const data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
+        const tableName = apiPathToTableName(requestPath);
+
         if (requestPath) {
-          resolve(data[requestPath]);
+          resolve(data[tableName]);
         } else {
           resolve(data);
         }
@@ -42,11 +51,13 @@ export default class api {
   static post(requestPath, payload) {
     return new Promise((resolve, reject) => {
       try {
-        if (requestPath !== 'notes') {
-          throw new Error('api.post() only \`notes\`');
+        if (requestPath !== NOTES_API_PATH) {
+          throw new Error(`api.post() only \`${NOTES_API_PATH}\``);
         }
         let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
-        data[requestPath].unshift(payload);
+        const tableName = apiPathToTableName(requestPath);
+
+        data[tableName].unshift(payload);
         localStorage.setItem(NAMESPACE, JSON.stringify(data));
         resolve();
       } catch (err) {
@@ -66,20 +77,40 @@ export default class api {
    *   { updates } updates Object
    * @return {Promise}
    */
-  static put(requestPath, { id, updates }) {
+  static put(requestPath, { id, updates } = {}) {
     return new Promise((resolve, reject) => {
       try {
         let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
+        const tableName = apiPathToTableName(requestPath);
 
-        if (requestPath === 'notes') {
-          data[requestPath] = data[requestPath].map(note => {
+        if (requestPath === NOTES_API_PATH) {
+          data[tableName] = data[tableName].map(note => {
             if (id == null /* null or undefined */ || note.id === id) {
               return assign({}, note, updates);
             }
             return note;
           });
-        } else if (requestPath === 'settings') {
-          data[requestPath] = assign({}, data[requestPath], updates);
+        }
+
+        if (requestPath === SETTINGS_API_PATH) {
+          data[tableName] = assign({}, data[tableName], updates);
+        }
+
+        if (requestPath.indexOf(`${NOTES_API_PATH}?`) > -1) {
+          const queryParams = qs.parse(url.parse(requestPath).query);
+          const { sort, key } = queryParams;
+
+          if (sort === 'descending') {
+            data[tableName] = data[tableName].slice().sort((a, b) => {
+              return +new Date(a[key]) - +new Date(b[key]);
+            });
+          }
+
+          if (sort === 'ascending') {
+            data[tableName] = data[tableName].slice().sort((a, b) => {
+              return +new Date(b[key]) - +new Date(a[key]);
+            });
+          }
         }
 
         resolve(
@@ -103,8 +134,8 @@ export default class api {
   static delete(requestPath, id) {
     return new Promise((resolve, reject) => {
       try {
-        if (requestPath !== 'notes') {
-          throw new Error('api.delete() only \`notes\`');
+        if (requestPath !== NOTES_API_PATH) {
+          throw new Error(`'api.delete() only \`${NOTES_API_PATH}\``);
         }
 
         let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);

@@ -27,6 +27,7 @@
     "lodash.throttle": "^3.0.4",
     "nib": "^1.1.0",
     "object-assign": "^4.0.1",
+    "qs": "^5.1.0",
     "react": "~0.13.3",
     "react-color-picker": "^2.1.9",
     "react-document-title": "^2.0.1",

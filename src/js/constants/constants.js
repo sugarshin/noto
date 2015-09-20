@@ -25,3 +25,6 @@ export const INITIAL_STORE = {
 export const FONT_SIZE_VARIATION = [
   9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 24, 28, 32, 40, 48, 64
 ];
+
+export const NOTES_API_PATH = '/notes';
+export const SETTINGS_API_PATH = '/settings';
