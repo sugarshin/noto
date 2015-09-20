@@ -96,6 +96,7 @@ export default class api {
           data[tableName] = assign({}, data[tableName], updates);
         }
 
+        // If there querystring
         if (requestPath.indexOf(`${NOTES_API_PATH}?`) > -1) {
           const queryParams = qs.parse(url.parse(requestPath).query);
           const { sort, key } = queryParams;
@@ -135,7 +136,7 @@ export default class api {
     return new Promise((resolve, reject) => {
       try {
         if (requestPath !== NOTES_API_PATH) {
-          throw new Error(`'api.delete() only \`${NOTES_API_PATH}\``);
+          throw new Error(`api.delete() only \`${NOTES_API_PATH}\``);
         }
 
         let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
