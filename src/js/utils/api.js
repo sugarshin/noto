@@ -9,12 +9,19 @@ const STRINGIFY_INITIAL_STORE = JSON.stringify(INITIAL_STORE);
 
 export default class api {
 
-  static fetch(path) {
+  /**
+   * fetch
+   *
+   * GET
+   * @param {String} requestPath 'notes' or 'settings'
+   * @return {Promise}
+   */
+  static fetch(requestPath) {
     return new Promise((resolve, reject) => {
       try {
         const data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
-        if (path) {
-          resolve(data[path]);
+        if (requestPath) {
+          resolve(data[requestPath]);
         } else {
           resolve(data);
         }
@@ -24,14 +31,22 @@ export default class api {
     });
   }
 
-  static post(path, payload) {
+  /**
+   * post
+   *
+   * POST
+   * @param {String} requestPath only 'notes'
+   * @param {Object} payload note
+   * @return {Promise}
+   */
+  static post(requestPath, payload) {
     return new Promise((resolve, reject) => {
       try {
-        if (path !== 'notes') {
-          throw new Error('api.post() only notes');
+        if (requestPath !== 'notes') {
+          throw new Error('api.post() only \`notes\`');
         }
         let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
-        data[path].unshift(payload);
+        data[requestPath].unshift(payload);
         localStorage.setItem(NAMESPACE, JSON.stringify(data));
         resolve();
       } catch (err) {
@@ -41,25 +56,30 @@ export default class api {
   }
 
   /**
-   * @path 'notes', 'settings'
-   * { id } note id. String or (null or undefined)
-   *   All will be update if it was null or undefined
-   * { updates } updates Object
+   * put
+   *
+   * PUT
+   * @param {String} requestPath 'notes' or 'settings'
+   * @param {Object} { id, updates }
+   *   { id } note id. String or (null or undefined)
+   *     All will be update if it was null or undefined
+   *   { updates } updates Object
+   * @return {Promise}
    */
-  static put(path, { id, updates }) {
+  static put(requestPath, { id, updates }) {
     return new Promise((resolve, reject) => {
       try {
         let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
 
-        if (path === 'notes') {
-          data[path] = data[path].map(note => {
+        if (requestPath === 'notes') {
+          data[requestPath] = data[requestPath].map(note => {
             if (id == null /* null or undefined */ || note.id === id) {
               return assign({}, note, updates);
             }
             return note;
           });
-        } else if (path === 'settings') {
-          data[path] = assign({}, data[path], updates);
+        } else if (requestPath === 'settings') {
+          data[requestPath] = assign({}, data[requestPath], updates);
         }
 
         resolve(
@@ -72,15 +92,19 @@ export default class api {
   }
 
   /**
-   * @path 'notes'
-   * { id } notes id String or null or undefined
+   * delete
+   *
+   * DELETE
+   * @param {String} requestPath 'notes'
+   * @param {String} id notes id String or null or undefined
    *   All will be delete if it was null or undefined
+   * @return {Promise}
    */
-  static delete(path, id) {
+  static delete(requestPath, id) {
     return new Promise((resolve, reject) => {
       try {
-        if (path !== 'notes') {
-          throw new Error('api.post() only notes');
+        if (requestPath !== 'notes') {
+          throw new Error('api.delete() only \`notes\`');
         }
 
         let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
