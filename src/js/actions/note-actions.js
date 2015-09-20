@@ -4,8 +4,8 @@ import dispatcher from '../dispatcher/dispatcher';
 import api from '../utils/api';
 
 import ActionTypes from '../constants/ActionTypes';
+import { NOTES_API_PATH } from '../constants/constants';
 
-const API_PATH = 'notes';
 const API_DEBOUNCE_TIME = 1000;
 
 export default class NoteActions {
@@ -44,7 +44,7 @@ export default class NoteActions {
   }
 
   _api(id, updates) {
-    api.put(API_PATH, { id, updates });
+    api.put(NOTES_API_PATH, { id, updates });
   }
 
 }

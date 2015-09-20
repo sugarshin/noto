@@ -48,6 +48,20 @@ export default class NoteItemList extends Component {
               <span className="octicon octicon-file-text"></span>
               <span>New</span>
             </button>
+
+            <button className="button-base"
+                    onClick={this.handleClickDescendingSortButton}>
+              <span className="octicon octicon-list-unordered"></span>
+              <span>Sort</span>
+              <span className="octicon octicon-chevron-down octicon-end-the-line"></span>
+            </button>
+
+            <button className="button-base"
+                    onClick={this.handleClickAscendingSortButton}>
+              <span className="octicon octicon-list-unordered"></span>
+              <span>Sort</span>
+              <span className="octicon octicon-chevron-up octicon-end-the-line"></span>
+            </button>
           </div>
 
           <div className="note-list-controller">
@@ -102,6 +116,14 @@ export default class NoteItemList extends Component {
       .map(note => note.id);
 
     noteListActions.trashCheckedNote(checkedNodeIDs);
+  }
+
+  handleClickDescendingSortButton() {
+    noteListActions.descendingSortNotes('createdAt');
+  }
+
+  handleClickAscendingSortButton() {
+    noteListActions.ascendingSortNotes('createdAt');
   }
 
   _includesRefineTag(note, refineTag) {

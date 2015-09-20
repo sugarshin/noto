@@ -6,8 +6,8 @@ import api from '../utils/api';
 
 import { INITIAL_STORE } from '../constants/constants';
 import ActionTypes from '../constants/ActionTypes';
+import { SETTINGS_API_PATH } from '../constants/constants';
 
-const API_PATH = 'settings';
 const API_DEBOUNCE_TIME = 1000;
 
 export default class SettingActions {
@@ -19,7 +19,7 @@ export default class SettingActions {
   fetch() {
     co(function* fetch() {
       try {
-        const data = yield api.fetch(API_PATH);
+        const data = yield api.fetch(SETTINGS_API_PATH);
 
         dispatcher.dispatch({
           actionType: ActionTypes.FETCH_SETTINGS,
@@ -75,7 +75,7 @@ export default class SettingActions {
   }
 
   _api(data) {
-    api.put(API_PATH, data);
+    api.put(SETTINGS_API_PATH, data);
   }
 
 }
