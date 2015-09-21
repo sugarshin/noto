@@ -8,7 +8,7 @@ import {
   NOTES_API_PATH,
   SETTINGS_API_PATH } from '../constants/constants';
 
-import apiPathToTableName from './apiPathToTableName';
+import apiPathToStoreName from './apiPathToStoreName';
 
 import { name as NAMESPACE } from '../../../package';
 
@@ -20,17 +20,16 @@ export default class api {
    * fetch
    *
    * GET
-   * @param {String} requestPath 'notes' or 'settings'
+   * @param  {String} (Optional) requestPath 'notes' or 'settings'
    * @return {Promise}
    */
   static fetch(requestPath) {
     return new Promise((resolve, reject) => {
       try {
         const data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
-        const tableName = apiPathToTableName(requestPath);
 
         if (requestPath) {
-          resolve(data[tableName]);
+          resolve(data[apiPathToStoreName(requestPath)]);
         } else {
           resolve(data);
         }
@@ -44,8 +43,8 @@ export default class api {
    * post
    *
    * POST
-   * @param {String} requestPath only 'notes'
-   * @param {Object} payload note
+   * @param  {String} requestPath only 'notes'
+   * @param  {Object} payload note
    * @return {Promise}
    */
   static post(requestPath, payload) {
@@ -55,7 +54,7 @@ export default class api {
           throw new Error(`api.post() only \`${NOTES_API_PATH}\``);
         }
         let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
-        const tableName = apiPathToTableName(requestPath);
+        const tableName = apiPathToStoreName(requestPath);
 
         data[tableName].unshift(payload);
         localStorage.setItem(NAMESPACE, JSON.stringify(data));
@@ -70,8 +69,8 @@ export default class api {
    * put
    *
    * PUT
-   * @param {String} requestPath 'notes' or 'settings'
-   * @param {Object} { id, updates }
+   * @param  {String} requestPath 'notes' or 'settings'
+   * @param  {Object} { id, updates }
    *   { id } note id. String or (null or undefined)
    *     All will be update if it was null or undefined
    *   { updates } updates Object
@@ -81,7 +80,7 @@ export default class api {
     return new Promise((resolve, reject) => {
       try {
         let data = JSON.parse(localStorage.getItem(NAMESPACE) || STRINGIFY_INITIAL_STORE);
-        const tableName = apiPathToTableName(requestPath);
+        const tableName = apiPathToStoreName(requestPath);
 
         if (requestPath === NOTES_API_PATH) {
           data[tableName] = data[tableName].map(note => {
@@ -114,9 +113,8 @@ export default class api {
           }
         }
 
-        resolve(
-          localStorage.setItem(NAMESPACE, JSON.stringify(data))
-        );
+        localStorage.setItem(NAMESPACE, JSON.stringify(data));
+        resolve();
       } catch (err) {
         reject(err);
       }
@@ -127,8 +125,8 @@ export default class api {
    * delete
    *
    * DELETE
-   * @param {String} requestPath 'notes'
-   * @param {String} id notes id String or null or undefined
+   * @param  {String} requestPath 'notes'
+   * @param  {String} id notes id String or null or undefined
    *   All will be delete if it was null or undefined
    * @return {Promise}
    */

@@ -1,7 +1,7 @@
 /**
  * apiPathToTableName
  *
- * @param {String} apiPath
+ * @param  {String} apiPath
  * @return {String}
  */
 
