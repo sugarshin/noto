@@ -11,6 +11,17 @@ import {
   APP_ELEMENT_ID,
   SETTINGS_NOTE_CONFIG } from '../constants/constants';
 
+const modalStyles = {
+  content: {
+    top: '6.25%',
+    left: '6.25%',
+    right: '6.25%',
+    bottom: '6.25%',
+    background: 'rgba(50, 59, 67, .9)',
+    padding: '4%'
+  }
+};
+
 Modal.setAppElement(document.getElementById(APP_ELEMENT_ID));
 
 export default class Setting extends Component {
@@ -39,17 +50,6 @@ export default class Setting extends Component {
     const selectOptions = FONT_SIZE_VARIATION.map(size => {
       return {value: size, label: `${size}px`};
     });
-
-    const modalStyles = {
-      content: {
-        top: '6.25%',
-        left: '6.25%',
-        right: '6.25%',
-        bottom: '6.25%',
-        background: 'rgba(50, 59, 67, .9)',
-        padding: '4%'
-      }
-    };
 
     return (
       <div className="setting-container">
