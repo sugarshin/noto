@@ -22,6 +22,10 @@ const modalStyles = {
   }
 };
 
+const selectOptions = FONT_SIZE_VARIATION.map(size => {
+  return {value: size, label: `${size}px`};
+});
+
 Modal.setAppElement(document.getElementById(APP_ELEMENT_ID));
 
 export default class Setting extends Component {
@@ -47,9 +51,6 @@ export default class Setting extends Component {
 
   render() {
     const { styles, isOpenSetting } = this.props.setting;
-    const selectOptions = FONT_SIZE_VARIATION.map(size => {
-      return {value: size, label: `${size}px`};
-    });
 
     return (
       <div className="setting-container">
