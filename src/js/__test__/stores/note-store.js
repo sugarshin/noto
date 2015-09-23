@@ -1,9 +1,10 @@
 import assert from 'power-assert';
 import _ from 'lodash';
 
-import { noteStore } from '../../context';
+import NoteStore from '../../stores/note-store';
 import { DEFAULT } from '../../constants/constants';
 
+const noteStore = new NoteStore();
 const DEFAULT_NOTE = DEFAULT.note;
 
 describe('NoteStore', () => {
