@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import strftime from 'strftime';
 
 import { noteListActions } from '../context';
 
@@ -11,7 +12,7 @@ export default class NoteItem extends Component {
         id: PropTypes.string.isRequired,
         title: PropTypes.string,
         body: PropTypes.string,
-        createdAt: PropTypes.string,
+        createdAt: PropTypes.instanceOf(Date),
         checked: PropTypes.bool
       })
     };
@@ -32,7 +33,7 @@ export default class NoteItem extends Component {
         <Link to="notes" params={{ id }}>
           <div className="note-item-title">{title}</div>
           <div className="note-item-body">{body}</div>
-          <div className="note-item-created-at">{createdAt}</div>
+          <div className="note-item-created-at">{strftime('%F %T', createdAt)}</div>
         </Link>
         <div className="note-item-button">
           <div className="note-item-button-checkbox"

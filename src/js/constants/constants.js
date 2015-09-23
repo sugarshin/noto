@@ -9,7 +9,7 @@ export const DEFAULT = {
     id: '',
     title: 'UNTITLED',
     body: '',
-    createdAt: '',
+    createdAt: null,
     trashed: false,
     checked: false,
     tags: []

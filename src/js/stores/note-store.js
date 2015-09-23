@@ -107,13 +107,29 @@ export default class NoteStore extends EventEmitter {
 
   _descendingSortNote(key) {
     this._notes = this._notes.slice().sort((a, b) => {
-      return +new Date(a[key]) - +new Date(b[key]);
+      if (a[key] > b[key]) {
+        return 1;
+      }
+
+      if (a[key] < b[key]) {
+        return -1;
+      }
+
+      return 0;
     });
   }
 
   _ascendingSortNote(key) {
     this._notes = this._notes.slice().sort((a, b) => {
-      return +new Date(b[key]) - +new Date(a[key]);
+      if (b[key] > a[key]) {
+        return 1;
+      }
+
+      if (b[key] < a[key]) {
+        return -1;
+      }
+
+      return 0;
     });
   }
 
