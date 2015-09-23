@@ -5,26 +5,9 @@
 
 .ReactModal__Overlay
   &.ReactModal__Overlay--after-open
-    position fixed
-    left 0
-    right 0
-    top 0
-    bottom 0
     z-index 1024
 
 .ReactModal__Content
-  position absolute
-  top 64px
-  left 64px
-  right 64px
-  bottom 64px
-  background alpha($baseColorLevel5, .9)
-  overflow auto
-  overflow-scrolling touch
-  outline none
-  padding 4%
-  // &.ReactModal__Content--after-open
-
   .close-modal-button
     appearance none
     margin 0
@@ -41,11 +24,3 @@
     z-index 1
     &:hover
       opacity .8
-
-@media only screen and (max-width: 767px)
-  .ReactModal__Content
-    top 32px
-    left 32px
-    right 32px
-    bottom 32px
-    padding 2%

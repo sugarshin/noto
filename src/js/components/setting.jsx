@@ -40,6 +40,17 @@ export default class Setting extends Component {
       return {value: size, label: `${size}px`};
     });
 
+    const modalStyles = {
+      content: {
+        top: '6.25%',
+        left: '6.25%',
+        right: '6.25%',
+        bottom: '6.25%',
+        background: 'rgba(50, 59, 67, .9)',
+        padding: '4%'
+      }
+    };
+
     return (
       <div className="setting-container">
         <button className="setting-open-button"
@@ -47,7 +58,8 @@ export default class Setting extends Component {
           <span className="octicon octicon-gear"></span>
         </button>
         <Modal isOpen={isOpenSetting}
-               onRequestClose={this.handleCloseModal}>
+               onRequestClose={this.handleCloseModal}
+               style={modalStyles}>
           <div className="setting-body">
             <button className="close-modal-button"
                     onClick={this.handleCloseModal}>
