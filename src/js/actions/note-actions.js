@@ -1,18 +1,13 @@
 import debounce from 'lodash.debounce';
 
 import dispatcher from '../dispatcher/dispatcher';
-import api from '../utils/api';
-
+import notesAPI from '../utils/notes-api';
 import ActionTypes from '../constants/ActionTypes';
-import { NOTES_API_PATH } from '../constants/constants';
 
 const API_DEBOUNCE_TIME = 1000;
+const debouncedNotesAPIPUT = debounce(notesAPI.put, API_DEBOUNCE_TIME);
 
 export default class NoteActions {
-
-  constructor() {
-    this._debouncedApi = debounce(this._api, API_DEBOUNCE_TIME);
-  }
 
   updateTag(id, tags) {
     dispatcher.dispatch({
@@ -21,7 +16,7 @@ export default class NoteActions {
       tags
     });
 
-    this._api(id, {tags});
+    debouncedNotesAPIPUT(id, {tags});
   }
 
   updateTitle(id, title) {
@@ -31,7 +26,7 @@ export default class NoteActions {
       title
     });
 
-    this._api(id, {title});
+    debouncedNotesAPIPUT(id, {title});
   }
 
   updateBody(id, body) {
@@ -40,11 +35,7 @@ export default class NoteActions {
       id,
       body
     });
-    this._debouncedApi(id, {body});
-  }
-
-  _api(id, updates) {
-    api.put(NOTES_API_PATH, { id, updates });
+    debouncedNotesAPIPUT(id, {body});
   }
 
 }

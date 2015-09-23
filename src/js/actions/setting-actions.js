@@ -2,24 +2,19 @@ import co from 'co';
 import debounce from 'lodash.debounce';
 
 import dispatcher from '../dispatcher/dispatcher';
-import api from '../utils/api';
+import settingsAPI from '../utils/settings-api';
 
-import { INITIAL_STORE } from '../constants/constants';
 import ActionTypes from '../constants/ActionTypes';
-import { SETTINGS_API_PATH } from '../constants/constants';
 
 const API_DEBOUNCE_TIME = 1000;
+const debouncedSettingsAPIPUT = debounce(settingsAPI.put, API_DEBOUNCE_TIME);
 
 export default class SettingActions {
-
-  constructor() {
-    this._debouncedApi = debounce(this._api, API_DEBOUNCE_TIME);
-  }
 
   fetch() {
     co(function* fetch() {
       try {
-        const data = yield api.fetch(SETTINGS_API_PATH);
+        const data = yield settingsAPI.fetch();
 
         dispatcher.dispatch({
           actionType: ActionTypes.FETCH_SETTINGS,
@@ -37,7 +32,7 @@ export default class SettingActions {
       color
     });
 
-    this._debouncedApi({ updates: {color} });
+    debouncedSettingsAPIPUT({color});
   }
 
   changeTextSize(size) {
@@ -46,7 +41,7 @@ export default class SettingActions {
       size
     });
 
-    this._debouncedApi({ updates: {size} });
+    debouncedSettingsAPIPUT({size});
   }
 
   changeBackgroundColor(backgroundColor) {
@@ -55,7 +50,7 @@ export default class SettingActions {
       backgroundColor
     });
 
-    this._debouncedApi({ updates: {backgroundColor} });
+    debouncedSettingsAPIPUT({backgroundColor});
   }
 
   reset(updates) {
@@ -64,7 +59,7 @@ export default class SettingActions {
       updates
     });
 
-    this._debouncedApi({ updates });
+    debouncedSettingsAPIPUT(updates);
   }
 
   changeIsOpenSetting(isOpenSetting) {
@@ -72,10 +67,6 @@ export default class SettingActions {
       actionType: ActionTypes.CHANGE_OPEN_SETTINGS,
       isOpenSetting
     });
-  }
-
-  _api(data) {
-    api.put(SETTINGS_API_PATH, data);
   }
 
 }
