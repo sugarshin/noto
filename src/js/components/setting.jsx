@@ -8,7 +8,8 @@ import {
   DEFAULT,
   INITIAL_STORE,
   FONT_SIZE_VARIATION,
-  APP_ELEMENT_ID } from '../constants/constants';
+  APP_ELEMENT_ID,
+  SETTINGS_NOTE_CONFIG } from '../constants/constants';
 
 Modal.setAppElement(document.getElementById(APP_ELEMENT_ID));
 
@@ -117,7 +118,7 @@ export default class Setting extends Component {
   }
 
   handleClickResetButton() {
-    settingActions.reset(DEFAULT.settings);
+    settingActions.reset(DEFAULT[SETTINGS_NOTE_CONFIG]);
   }
 
 }
