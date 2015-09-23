@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import strftime from 'strftime';
 
 import { noteListActions } from '../context';
 
@@ -10,7 +11,7 @@ export default class TrashedNoteItem extends Component {
         id: PropTypes.string.isRequired,
         title: PropTypes.string,
         body: PropTypes.string,
-        createdAt: PropTypes.string
+        createdAt: PropTypes.instanceOf(Date)
       })
     };
   }
@@ -29,7 +30,7 @@ export default class TrashedNoteItem extends Component {
       <div className="trashed-note-item-container note-item-container">
         <div className="note-item-title">{title}</div>
         <div className="note-item-body">{`${body.slice(0, 13)}...`}</div>
-        <div className="note-item-created-at">{createdAt}</div>
+        <div className="note-item-created-at">{strftime('%F %T', createdAt)}</div>
         <div className="note-item-button">
           <button className="button-base"
                   onClick={this.handleClickRestoreButton}>

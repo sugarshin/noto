@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 import assign from 'object-assign';
-import strftime from 'strftime';
 
 import NoteListLink from './note-list-link';
 import NoteItem from './note-item';
@@ -14,7 +13,6 @@ export default class NoteItemList extends Component {
     return {
       notes: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
-        createdAt: PropTypes.string,
         trashed: PropTypes.bool,
         tags: PropTypes.arrayOf(PropTypes.string)
       })),
@@ -102,7 +100,7 @@ export default class NoteItemList extends Component {
 
   handleClickAddButton() {
     noteListActions.createNote(assign({}, DEFAULT.note, {
-      createdAt: strftime('%Y-%m-%d %H:%M')
+      createdAt: new Date()
     }));
   }
 
