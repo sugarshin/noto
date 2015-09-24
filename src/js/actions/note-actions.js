@@ -1,4 +1,4 @@
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/function/debounce';
 
 import dispatcher from '../dispatcher/dispatcher';
 import notesAPI from '../utils/notes-api';

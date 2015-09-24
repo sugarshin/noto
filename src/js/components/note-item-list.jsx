@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
-import assign from 'object-assign';
+import assign from 'lodash/object/assign';
 
 import NoteListLink from './note-list-link';
 import NoteItem from './note-item';

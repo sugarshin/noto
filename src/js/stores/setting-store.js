@@ -1,5 +1,5 @@
 import EventEmitter from 'eventemitter3';
-import assign from 'object-assign';
+import assign from 'lodash/object/assign';
 
 import dispatcher from '../dispatcher/dispatcher';
 import ActionTypes from '../constants/ActionTypes';

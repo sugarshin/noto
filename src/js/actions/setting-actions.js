@@ -1,5 +1,5 @@
 import co from 'co';
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/function/debounce';
 
 import dispatcher from '../dispatcher/dispatcher';
 import settingsAPI from '../utils/settings-api';

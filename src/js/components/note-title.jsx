@@ -1,6 +1,6 @@
 import React, { Component, PropTypes, findDOMNode } from 'react';
 import classnames from 'classnames';
-import throttle from 'lodash.throttle';
+import throttle from 'lodash/function/throttle';
 
 import { noteActions } from '../context';
 

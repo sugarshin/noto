@@ -1,8 +1,8 @@
 import Promise from 'bluebird';
 import localforage from 'localforage';
-import assign from 'object-assign';
-import cloneDeep from 'lodash.clonedeep';
-import where from 'lodash.where';
+import assign from 'lodash/object/assign';
+import cloneDeep from 'lodash/lang/cloneDeep';
+import where from 'lodash/collection/where';
 
 import {
   INITIAL_STORE,
