@@ -1,9 +1,7 @@
-import co from 'co';
 import debounce from 'lodash/function/debounce';
 
 import dispatcher from '../dispatcher/dispatcher';
 import settingsAPI from '../utils/settings-api';
-
 import ActionTypes from '../constants/ActionTypes';
 
 const API_DEBOUNCE_TIME = 1000;
@@ -12,9 +10,9 @@ const debouncedSettingsAPIPUT = debounce(settingsAPI.put, API_DEBOUNCE_TIME);
 export default class SettingActions {
 
   fetch() {
-    co(function* fetch() {
+    (async function fetch() {
       try {
-        const data = yield settingsAPI.fetch();
+        const data = await settingsAPI.fetch();
 
         dispatcher.dispatch({
           actionType: ActionTypes.FETCH_SETTINGS,
@@ -23,7 +21,7 @@ export default class SettingActions {
       } catch (err) {
         console.log('SettingActions#fetch:\n', err);
       }
-    });
+    })();
   }
 
   changeTextColor(color) {

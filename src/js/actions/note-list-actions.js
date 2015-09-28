@@ -1,5 +1,4 @@
 import crypto from 'crypto';
-import co from 'co';
 
 import dispatcher from '../dispatcher/dispatcher';
 import notesAPI from '../utils/notes-api';
@@ -8,9 +7,10 @@ import ActionTypes from '../constants/ActionTypes';
 export default class NoteListActions {
 
   fetch() {
-    co(function* fetch() {
+    (async function fetch() {
       try {
-        const notes = yield notesAPI.fetch();
+        const notes = await notesAPI.fetch();
+
         dispatcher.dispatch({
           actionType: ActionTypes.FETCH_NOTES,
           notes
@@ -18,7 +18,7 @@ export default class NoteListActions {
       } catch (err) {
         console.log('NoteListActions#fetch:\n', err);
       }
-    });
+    })();
   }
 
   createNote(note) {
