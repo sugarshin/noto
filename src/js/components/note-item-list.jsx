@@ -100,7 +100,7 @@ export default class NoteItemList extends Component {
 
   handleClickAddButton() {
     noteListActions.createNote(assign({}, DEFAULT.note, {
-      createdAt: new Date()
+      createdAt: new Date().toString()
     }));
   }
 

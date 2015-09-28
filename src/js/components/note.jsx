@@ -15,7 +15,7 @@ export default class Note extends Component {
         id: PropTypes.string.isRequired,
         title: PropTypes.string,
         body: PropTypes.string,
-        createdAt: PropTypes.instanceOf(Date),
+        createdAt: PropTypes.string,
         tags: PropTypes.arrayOf(PropTypes.string)
       }),
       setting: PropTypes.object
@@ -34,7 +34,7 @@ export default class Note extends Component {
     return (
       <div className="note-container">
         <NoteTitle note={{id: note.id, title: note.title}} />
-        <div className="note-created-at">{strftime('%F %T', note.createdAt)}</div>
+        <div className="note-created-at">{strftime('%F %T', new Date(note.createdAt))}</div>
         <TagsInput value={note.tags}
                    ref="tags"
                    placeholder="Add a tag..."
